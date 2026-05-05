@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lumière Spa — Botanical Wellness & Beauty, London</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.hero{min-height:100svh;padding-top:var(--nav);display:grid;grid-template-columns:1fr 1.08fr;overflow:hidden}
+.hero-l{display:flex;flex-direction:column;justify-content:center;padding:5rem 3.5rem 5rem 2rem;max-width:650px;margin-left:auto;position:relative;z-index:2}
+.hero-sub{font-size:1rem;color:var(--bark2);max-width:390px;line-height:1.85;margin-bottom:2.5rem}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap}
+.hero-scroll{margin-top:3.5rem;display:flex;align-items:center;gap:12px;font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;color:var(--bark3);opacity:.65}
+.hero-line{width:1px;height:44px;background:var(--bark3);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:scaleY(1);opacity:.4}50%{transform:scaleY(1.5);opacity:1}}
+.hero-r{position:relative;overflow:hidden}
+.hero-r img{width:100%;height:100%;object-fit:cover;transition:transform 10s ease}
+.hero-r:hover img{transform:scale(1.06)}
+.hero-fade{position:absolute;inset:0;background:linear-gradient(90deg,var(--cream) 0%,transparent 20%)}
+.hero-badge{position:absolute;bottom:2.5rem;right:2rem;width:112px;height:112px;background:var(--terra);border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;text-align:center;box-shadow:0 8px 30px rgba(181,100,60,.5);animation:float 4s ease-in-out infinite}
+.hero-badge strong{font-family:var(--serif);font-size:2.3rem;font-weight:300;line-height:1;display:block}
+.hero-badge small{font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;opacity:.85;max-width:65px;line-height:1.3;display:block;margin-top:.15rem}
+@keyframes float{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-12px) rotate(2deg)}}
+
+.stats{padding:2.2rem 0;background:var(--cream2);border-top:1px solid var(--parchment);border-bottom:1px solid var(--parchment)}
+.sg{display:grid;grid-template-columns:repeat(4,1fr);text-align:center}
+.si{padding:.8rem;border-right:1px solid var(--parchment)}
+.si:last-child{border-right:none}
+.si-n{font-family:var(--serif);font-size:3.3rem;font-weight:300;color:var(--terra);line-height:1;display:block;transition:transform .3s}
+.si:hover .si-n{transform:scale(1.1) translateY(-3px)}
+.si-l{font-size:.66rem;letter-spacing:.15em;text-transform:uppercase;color:var(--bark3);margin-top:.25rem;display:block}
+
+.phil{display:grid;grid-template-columns:1fr 1.4fr;gap:6rem;align-items:center}
+.phil-imgs{position:relative}
+.pm{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:4px;box-shadow:0 20px 60px rgba(46,32,22,.18)}
+.pa{position:absolute;bottom:-2rem;right:-2rem;width:52%;aspect-ratio:1;object-fit:cover;border-radius:4px;border:8px solid var(--cream);box-shadow:0 12px 35px rgba(46,32,22,.14)}
+.pyr{position:absolute;top:2rem;left:-2rem;background:var(--moss);color:#fff;padding:1.3rem 1.2rem;text-align:center;border-radius:3px;box-shadow:0 8px 24px rgba(78,102,65,.35)}
+.pyr strong{font-family:var(--serif);font-size:2.8rem;font-weight:300;display:block;line-height:1}
+.pyr span{font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;opacity:.8}
+.phil-lead{font-family:var(--serif);font-size:1.14rem;font-weight:300;line-height:1.75;color:var(--bark2);margin:1.2rem 0 1.8rem}
+.pillars{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem;margin:1.6rem 0}
+.pillar{padding:1.2rem;background:var(--cream2);border-radius:3px;border-left:2px solid var(--terra);transition:transform .3s,box-shadow .3s}
+.pillar:hover{transform:translateY(-3px);box-shadow:0 8px 22px rgba(46,32,22,.08)}
+.p-ico{color:var(--terra);margin-bottom:.5rem;opacity:.85}
+.pillar h4{font-family:var(--serif);font-size:1.06rem;font-weight:500;margin-bottom:.25rem}
+.pillar p{font-size:.79rem;color:var(--bark2);line-height:1.6}
+
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--parchment);border-radius:4px;overflow:hidden;margin-top:2.5rem}
+.svc-card{background:var(--cream);padding:2.1rem 1.7rem;display:flex;flex-direction:column;gap:.85rem;transition:background .3s,transform .3s;position:relative;overflow:hidden;cursor:pointer;text-decoration:none;color:inherit}
+.svc-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--terra);transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease)}
+.svc-card:hover{background:var(--cream2);transform:translateY(-4px)}
+.svc-card:hover::after{transform:scaleX(1)}
+.svc-ico{width:46px;height:46px;background:var(--parchment);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--terra);transition:background .3s,transform .4s}
+.svc-card:hover .svc-ico{background:var(--terra);color:#fff;transform:rotate(15deg) scale(1.12)}
+.svc-card h3{font-family:var(--serif);font-size:1.22rem;font-weight:400}
+.svc-card p{font-size:.79rem;color:var(--bark2);flex:1;line-height:1.65}
+.svc-lnk{font-size:.67rem;letter-spacing:.13em;text-transform:uppercase;color:var(--terra);display:flex;align-items:center;gap:7px;transition:gap .3s}
+.svc-card:hover .svc-lnk{gap:11px}
+
+.feat-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+.feat-img{position:relative;aspect-ratio:4/5;overflow:hidden;border-radius:4px;box-shadow:0 24px 70px rgba(46,32,22,.3)}
+.feat-img img{width:100%;height:100%;object-fit:cover;transition:transform .7s ease}
+.feat-img:hover img{transform:scale(1.05)}
+.feat-tag{position:absolute;top:1.5rem;left:1.5rem;background:var(--gold);color:#fff;padding:.32rem .9rem;font-size:.6rem;letter-spacing:.17em;text-transform:uppercase;border-radius:2px}
+.feat-price{font-family:var(--serif);font-size:3.5rem;font-weight:300;color:var(--sand);margin:1.1rem 0;line-height:1}
+.feat-price sup{font-size:1.1rem;vertical-align:super}
+.feat-dur{font-size:.74rem;letter-spacing:.07em;color:var(--bark3);margin-bottom:1.1rem;display:flex;align-items:center;gap:6px}
+.feat-desc{font-size:.87rem;color:rgba(247,242,234,.68);line-height:1.82;margin-bottom:1.7rem}
+.feat-list{display:flex;flex-direction:column;gap:.5rem;margin-bottom:2rem}
+.feat-list li{display:flex;align-items:center;gap:10px;font-size:.82rem;color:rgba(247,242,234,.78)}
+.feat-list li::before{content:'';width:18px;height:1px;background:var(--gold);flex-shrink:0}
+
+.testi-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:2.5rem;flex-wrap:wrap;gap:1.5rem}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem}
+.tcard{background:var(--cream);border-radius:4px;padding:1.8rem;display:flex;flex-direction:column;gap:.95rem;border:1px solid transparent;transition:border-color .3s,transform .4s,box-shadow .4s;cursor:default}
+.tcard:hover{border-color:var(--parchment);transform:perspective(700px) rotateX(4deg) translateY(-6px);box-shadow:0 20px 50px rgba(46,32,22,.12)}
+.stars{color:var(--gold);font-size:.92rem;letter-spacing:2px}
+.tq{font-family:var(--serif);font-size:1.06rem;font-weight:300;font-style:italic;line-height:1.65;color:var(--bark2);flex:1}
+.tq::before{content:'\201C';color:var(--terra)}
+.tq::after{content:'\201D';color:var(--terra)}
+.tauthor{display:flex;align-items:center;gap:10px}
+.tav{width:38px;height:38px;border-radius:50%;background:var(--parchment);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:.95rem;color:var(--terra);flex-shrink:0}
+.tname{font-size:.86rem;font-weight:400;color:var(--bark);display:block}
+.trole{font-size:.7rem;color:var(--bark3)}
+
+.jrnl-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:1.4rem;margin-top:2.5rem}
+.jcard{display:flex;flex-direction:column;gap:.85rem;transition:transform .35s}
+.jcard:hover{transform:translateY(-7px)}
+.jcard-img{overflow:hidden;border-radius:4px;background:var(--parchment);box-shadow:0 6px 20px rgba(46,32,22,.09)}
+.jcard-img img{width:100%;height:100%;object-fit:cover;transition:transform .65s ease}
+.jcard:hover .jcard-img img{transform:scale(1.07)}
+.jcard--big .jcard-img{aspect-ratio:3/4}
+.jcard:not(.jcard--big) .jcard-img{aspect-ratio:4/3}
+.jcat{font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--terra)}
+.jcard h3{font-family:var(--serif);font-size:1.2rem;font-weight:400;line-height:1.3;transition:color .3s}
+.jcard:hover h3{color:var(--terra)}
+.jcard p{font-size:.79rem;color:var(--bark2);line-height:1.6}
+.jmeta{font-size:.7rem;color:var(--bark3)}
+
+.cta-sec{text-align:center;position:relative;overflow:hidden}
+.cta-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,var(--parchment) 0%,transparent 70%);opacity:.55}
+.cta-sec>*{position:relative;z-index:1}
+.cta-sec .h-hero{margin:.8rem 0 1.1rem}
+.cta-sec>p{font-size:.93rem;color:var(--bark2);max-width:480px;margin:0 auto 2.2rem}
+.cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+
+@media(max-width:1100px){.hero{grid-template-columns:1fr}.hero-r{display:none}.hero-l{max-width:100%;padding:4rem 2rem}.phil{grid-template-columns:1fr;gap:3rem}.phil-imgs{max-width:480px}.svc-grid{grid-template-columns:1fr 1fr}.feat-grid{grid-template-columns:1fr}.testi-grid{grid-template-columns:1fr 1fr}.jrnl-grid{grid-template-columns:1fr 1fr}.sg{grid-template-columns:1fr 1fr}}
+@media(max-width:680px){.svc-grid,.testi-grid,.jrnl-grid{grid-template-columns:1fr}.sg{grid-template-columns:1fr 1fr}.pillars{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div id="nav-ph"></div>
+<main>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-l">
+    <div class="label">Est. 2008 · London</div>
+    <h1 class="h-hero">Where nature<br>meets <em>radiance</em></h1>
+    <p class="hero-sub">A sanctuary of botanical beauty and holistic wellness, crafted for those who seek genuine restoration.</p>
+    <div class="hero-btns">
+      <a href="booking.html" class="btn btn-fill">Book a Treatment <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      <a href="services.html" class="btn btn-line">Explore Services</a>
+    </div>
+    <div class="hero-scroll"><div class="hero-line"></div>Scroll to discover</div>
+  </div>
+  <div class="hero-r">
+    <img src="https://images.unsplash.com/photo-1600334129128-685c5582fd35?w=900&q=80&auto=format&fit=crop" alt="Lumière Spa botanical interior">
+    <div class="hero-fade"></div>
+    <div class="hero-badge"><strong>15</strong><small>Years of Care</small></div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap" aria-hidden="true">
+  <div class="mq-row">
+    <div class="mq-track">
+      <div class="mi"><span class="mi-dot"></span>Botanical Facials</div><div class="mi"><span class="mi-dot"></span>Ritual Massage</div><div class="mi"><span class="mi-dot"></span>Body Wraps & Scrubs</div><div class="mi"><span class="mi-dot"></span>Hair Studio</div><div class="mi"><span class="mi-dot"></span>Nail Artistry</div><div class="mi"><span class="mi-dot"></span>Aromatherapy</div><div class="mi"><span class="mi-dot"></span>Hot Stone Therapy</div><div class="mi"><span class="mi-dot"></span>Bridal Packages</div><div class="mi"><span class="mi-dot"></span>Botanical Facials</div><div class="mi"><span class="mi-dot"></span>Ritual Massage</div><div class="mi"><span class="mi-dot"></span>Body Wraps & Scrubs</div><div class="mi"><span class="mi-dot"></span>Hair Studio</div><div class="mi"><span class="mi-dot"></span>Nail Artistry</div><div class="mi"><span class="mi-dot"></span>Aromatherapy</div><div class="mi"><span class="mi-dot"></span>Hot Stone Therapy</div><div class="mi"><span class="mi-dot"></span>Bridal Packages</div>
+    </div>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="wrap">
+    <div class="sg">
+      <div class="si fu"><span class="si-n" data-count="15" data-suffix="+">0+</span><span class="si-l">Years of Expertise</span></div>
+      <div class="si fu"><span class="si-n" data-count="8000" data-suffix="+">0+</span><span class="si-l">Happy Clients</span></div>
+      <div class="si fu"><span class="si-n" data-count="40" data-suffix="+">0+</span><span class="si-l">Signature Treatments</span></div>
+      <div class="si fu"><span class="si-n" data-count="12">0</span><span class="si-l">Expert Therapists</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- PHILOSOPHY -->
+<section class="sp" style="background:var(--cream)">
+  <div class="wrap">
+    <div class="phil">
+      <div class="phil-imgs fu">
+        <img class="pm" src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=600&q=80&auto=format&fit=crop" alt="Botanical ingredients">
+        <img class="pa" src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=350&q=80&auto=format&fit=crop" alt="Peaceful spa room">
+        <div class="pyr"><strong>15</strong><span>Years of Botanical Beauty</span></div>
+      </div>
+      <div>
+        <div class="label fu">Our Philosophy</div>
+        <h2 class="h-sec fu">Beauty rooted in<br><em>the natural world</em></h2>
+        <p class="phil-lead fu">We believe true beauty is an expression of inner health and outer harmony. Every treatment at Lumière is formulated with plant-based ingredients, sustainably sourced and chosen for their proven efficacy.</p>
+        <div class="leaf-div fu"><svg width="16" height="16" viewBox="0 0 24 24" fill="var(--terra)"><path d="M12 2C10 8 4 9 4 14c0 4.4 3.6 8 8 8s8-3.6 8-8c0-5-6-6-8-12z"/></svg></div>
+        <div class="pillars">
+          <div class="pillar fu"><div class="p-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2C10 8 4 9 4 14c0 4.4 3.6 8 8 8s8-3.6 8-8c0-5-6-6-8-12z"/></svg></div><h4>100% Botanical</h4><p>Every formula begins with organic, plant-derived ingredients free from harsh chemicals.</p></div>
+          <div class="pillar fu"><div class="p-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9" stroke-width="2.5"/><line x1="15" y1="9" x2="15.01" y2="9" stroke-width="2.5"/></svg></div><h4>Expert Therapists</h4><p>Our certified specialists bring decades of combined expertise to every single session.</p></div>
+          <div class="pillar fu"><div class="p-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 15l-3-3a22 22 0 012-3.95A12.88 12.88 0 0122 2c0 2.72-.78 7.5-6 11a22 22 0 01-4 2z"/></svg></div><h4>Holistic Approach</h4><p>We treat the whole person — body, mind and spirit — for results that radiate from within.</p></div>
+          <div class="pillar fu"><div class="p-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h4>Sustainably Sourced</h4><p>We partner with ethical growers and use eco-conscious packaging throughout.</p></div>
+        </div>
+        <a href="services.html" class="btn btn-fill fu">Discover Our Treatments <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES PREVIEW -->
+<section class="sp bg2">
+  <div class="wrap">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1.5rem;margin-bottom:.5rem">
+      <div><div class="label fu">What We Offer</div><h2 class="h-sec fu">Our <em>treatments</em></h2></div>
+      <a href="services.html" class="btn btn-line fu">View All Services</a>
+    </div>
+    <div class="svc-grid">
+      <a href="services.html" class="svc-card fu"><div class="svc-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2C10 8 4 9 4 14c0 4.4 3.6 8 8 8s8-3.6 8-8c0-5-6-6-8-12z"/></svg></div><h3>Botanical Facials</h3><p>Plant-powered facial rituals using hand-harvested botanicals, cold-pressed oils, and active enzyme masks tailored to your unique skin type.</p><span class="svc-lnk">Explore <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a>
+      <a href="services.html" class="svc-card fu"><div class="svc-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 8h1a4 4 0 010 8h-1M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></div><h3>Ritual Massage</h3><p>From Swedish to deep-tissue and hot-stone, each massage is a choreographed ritual using warm botanical oils infused with rare herbs.</p><span class="svc-lnk">Explore <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a>
+      <a href="services.html" class="svc-card fu"><div class="svc-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg></div><h3>Body Wraps</h3><p>Detoxifying mud wraps, mineral-rich seaweed cocoons, and warming herbal poultice treatments to deeply nourish and sculpt.</p><span class="svc-lnk">Explore <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a>
+      <a href="services.html" class="svc-card fu"><div class="svc-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div><h3>Hair Studio</h3><p>Creative cuts, organic colour, botanical keratin treatments, and scalp rituals with our master stylists in our natural hair sanctuary.</p><span class="svc-lnk">Explore <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a>
+      <a href="services.html" class="svc-card fu"><div class="svc-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div><h3>Nail Artistry</h3><p>Manicures and pedicures using non-toxic 10-free polishes. Gel, nail art, strengthening treatments, and nourishing hand massage rituals.</p><span class="svc-lnk">Explore <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a>
+      <a href="services.html" class="svc-card fu"><div class="svc-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h3>Bridal Packages</h3><p>Complete bridal wellness journeys from pre-wedding skin prep to morning-of hair and makeup, designed for your most luminous day.</p><span class="svc-lnk">Explore <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED TREATMENT -->
+<section class="sp bg-dark">
+  <div class="wrap">
+    <div class="feat-grid">
+      <div class="feat-img fu">
+        <img src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?w=700&q=80&auto=format&fit=crop" alt="Lumière Botanical Ritual">
+        <span class="feat-tag">Signature Treatment</span>
+      </div>
+      <div class="fu">
+        <div class="label">Staff Favourite</div>
+        <h2 class="h-sec">The Lumière<br><em>Botanical Ritual</em></h2>
+        <div class="feat-price"><sup>£</sup>185</div>
+        <div class="feat-dur"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 90 minutes · Includes botanical skin consultation</div>
+        <p class="feat-desc">Our signature ritual begins with a deep botanical cleanse, followed by a custom-blended enzyme exfoliation, warm herbal compress, and a plant stem-cell mask. Concludes with a deeply restorative scalp and shoulder massage ritual.</p>
+        <ul class="feat-list">
+          <li>Personalised botanical skin assessment</li>
+          <li>Four-layer facial treatment</li>
+          <li>Hot herbal compress therapy</li>
+          <li>Scalp &amp; shoulder massage ritual</li>
+          <li>Take-home botanical serum sample</li>
+        </ul>
+        <a href="booking.html" class="btn btn-line-lt">Reserve Your Ritual <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="sp bg2">
+  <div class="wrap">
+    <div class="testi-head">
+      <div><div class="label fu">Guest Experiences</div><h2 class="h-sec fu">What our clients <em>say</em></h2></div>
+      <a href="gallery.html" class="btn btn-line fu">View Gallery</a>
+    </div>
+    <div class="testi-grid">
+      <div class="tcard fu"><div class="stars">★★★★★</div><p class="tq">The Botanical Ritual completely transformed my skin. I've been to many spas in London but Lumière is on another level — the care, the scents, the sheer expertise of every therapist.</p><div class="tauthor"><div class="tav">SH</div><div><span class="tname">Sophia Harrison</span><span class="trole">Regular Client since 2019</span></div></div></div>
+      <div class="tcard fu"><div class="stars">★★★★★</div><p class="tq">My bridal package was an absolute dream. The team ensured I felt completely relaxed and utterly radiant on my wedding day. Every detail was thoughtfully curated.</p><div class="tauthor"><div class="tav">AC</div><div><span class="tname">Amara Osei-Clarke</span><span class="trole">Bride, June 2024</span></div></div></div>
+      <div class="tcard fu"><div class="stars">★★★★★</div><p class="tq">The hot stone massage is absolutely exceptional. I left feeling like a completely different person. The botanical oils linger beautifully all day long. Utterly divine.</p><div class="tauthor"><div class="tav">JF</div><div><span class="tname">James Fairweather</span><span class="trole">Monthly Visitor</span></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- JOURNAL PREVIEW -->
+<section class="sp" style="background:var(--cream)">
+  <div class="wrap">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1.5rem">
+      <div><div class="label fu">From the Journal</div><h2 class="h-sec fu">Wellness <em>insights</em></h2></div>
+      <a href="blog.html" class="btn btn-line fu">Read All Articles</a>
+    </div>
+    <div class="jrnl-grid">
+      <a href="blog.html" class="jcard jcard--big fu"><div class="jcard-img"><img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?w=600&q=80&auto=format&fit=crop" alt="Skincare article" loading="lazy"></div><div class="jcat">Skincare Science</div><h3>Why Bakuchiol Is the Botanical Retinol Your Skin Has Been Waiting For</h3><p>We explore how this plant-derived wonder ingredient compares to traditional retinol — and why our therapists are calling it the future of botanical anti-ageing.</p><div class="jmeta">14 March 2025 · 6 min read</div></a>
+      <a href="blog.html" class="jcard fu"><div class="jcard-img"><img src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=500&q=80&auto=format&fit=crop" alt="Spring wellness" loading="lazy"></div><div class="jcat">Seasonal Wellness</div><h3>Five Spring Rituals to Awaken Your Skin After Winter</h3><div class="jmeta">28 Feb 2025 · 4 min read</div></a>
+      <a href="blog.html" class="jcard fu"><div class="jcard-img"><img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=500&q=80&auto=format&fit=crop" alt="Aromatherapy" loading="lazy"></div><div class="jcat">Aromatherapy</div><h3>The Complete Guide to Essential Oil Blending for Stress Relief</h3><div class="jmeta">10 Feb 2025 · 5 min read</div></a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<section class="sp cta-sec bg-p">
+  <div class="cta-glow" aria-hidden="true"></div>
+  <div class="wrap-sm">
+    <div class="label fu" style="justify-content:center">Begin Your Journey</div>
+    <h2 class="h-hero fu">Ready to <em>restore</em><br>your radiance?</h2>
+    <p class="fu">Book your bespoke treatment today and step into a world of botanical luxury. New clients receive a complimentary skin consultation worth £40.</p>
+    <div class="cta-btns fu">
+      <a href="booking.html" class="btn btn-fill">Book Online <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      <a href="tel:+442071234567" class="btn btn-line">Call: +44 207 123 4567</a>
+    </div>
+  </div>
+</section>
+
+</main>
+<div id="ft-ph"></div>
+<script src="shared.js"></script>
+</body>
+</html>

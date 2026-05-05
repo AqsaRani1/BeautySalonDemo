@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Gallery — Lumière Spa</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.gal-filters{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:2rem}
+.gf-btn{padding:.45rem 1.1rem;font-size:.69rem;letter-spacing:.12em;text-transform:uppercase;border:1px solid var(--parchment);background:none;color:var(--bark2);border-radius:2px;transition:.3s;cursor:pointer;font-family:var(--sans)}
+.gf-btn:hover,.gf-btn.active{background:var(--terra);border-color:var(--terra);color:#fff}
+.gallery-masonry{columns:3;column-gap:1rem}
+.gal-item{break-inside:avoid;margin-bottom:1rem;overflow:hidden;border-radius:4px;position:relative;cursor:pointer;transition:transform .35s,box-shadow .35s}
+.gal-item:hover{transform:scale(1.02) translateY(-3px);box-shadow:0 18px 45px rgba(46,32,22,.22)}
+.gal-item img{width:100%;display:block;transition:transform .65s ease;transform-origin:center}
+.gal-item:hover img{transform:scale(1.08)}
+.gal-overlay{position:absolute;inset:0;background:rgba(46,32,22,0);display:flex;align-items:flex-end;padding:1.2rem;transition:background .35s}
+.gal-lbl{color:#fff;font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;transform:translateY(12px);opacity:0;transition:.35s;font-family:var(--sans)}
+.gal-item:hover .gal-overlay{background:rgba(46,32,22,.45)}
+.gal-item:hover .gal-lbl{transform:none;opacity:1}
+
+/* LIGHTBOX */
+.lb{position:fixed;inset:0;background:rgba(46,32,22,.95);z-index:600;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s;backdrop-filter:blur(4px)}
+.lb.open{opacity:1;pointer-events:all}
+.lb-img{max-width:90vw;max-height:85vh;border-radius:4px;box-shadow:0 30px 80px rgba(0,0,0,.5);transition:transform .4s;transform:scale(.94)}
+.lb.open .lb-img{transform:scale(1)}
+.lb-close{position:absolute;top:1.5rem;right:1.5rem;width:44px;height:44px;border-radius:50%;background:rgba(247,242,234,.12);display:flex;align-items:center;justify-content:center;color:var(--cream);cursor:pointer;transition:.3s;font-size:1.4rem;line-height:1}
+.lb-close:hover{background:var(--terra)}
+.lb-cap{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);color:rgba(247,242,234,.7);font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;text-align:center;white-space:nowrap}
+
+@media(max-width:900px){.gallery-masonry{columns:2}}
+@media(max-width:480px){.gallery-masonry{columns:1}}
+</style>
+</head>
+<body>
+<div id="nav-ph"></div>
+
+<div class="pg-hero">
+  <div class="pg-hero-inner wrap">
+    <div class="label fu" style="justify-content:center">Our Space & Work</div>
+    <h1>The <em>Gallery</em></h1>
+    <p>A glimpse into our botanical sanctuary — our treatments, spaces, team moments, and the transformations we create every day.</p>
+  </div>
+</div>
+
+<main>
+<section class="sp" style="background:var(--cream)">
+<div class="wrap">
+
+  <div class="gal-filters">
+    <button class="gf-btn active" data-filter="all">All</button>
+    <button class="gf-btn" data-filter="spa">The Spa</button>
+    <button class="gf-btn" data-filter="facial">Facials</button>
+    <button class="gf-btn" data-filter="massage">Massage</button>
+    <button class="gf-btn" data-filter="hair">Hair</button>
+    <button class="gf-btn" data-filter="nails">Nails</button>
+    <button class="gf-btn" data-filter="bridal">Bridal</button>
+  </div>
+
+  <div class="gallery-masonry" id="gallery">
+    <div class="gal-item tilt3d" data-category="spa"><img src="https://images.unsplash.com/photo-1600334129128-685c5582fd35?w=600&q=75&auto=format&fit=crop" alt="Spa entrance"><div class="gal-overlay"><span class="gal-lbl">Reception & Entrance</span></div></div>
+    <div class="gal-item tilt3d" data-category="facial"><img src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?w=600&q=75&auto=format&fit=crop" alt="Facial treatment"><div class="gal-overlay"><span class="gal-lbl">Botanical Facial</span></div></div>
+    <div class="gal-item tilt3d" data-category="spa"><img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=600&q=75&auto=format&fit=crop" alt="Spa relaxation"><div class="gal-overlay"><span class="gal-lbl">Relaxation Lounge</span></div></div>
+    <div class="gal-item tilt3d" data-category="massage"><img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=600&q=75&auto=format&fit=crop" alt="Massage room"><div class="gal-overlay"><span class="gal-lbl">Treatment Suite</span></div></div>
+    <div class="gal-item tilt3d" data-category="hair"><img src="https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?w=600&q=75&auto=format&fit=crop" alt="Hair styling"><div class="gal-overlay"><span class="gal-lbl">Hair Studio</span></div></div>
+    <div class="gal-item tilt3d" data-category="facial"><img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?w=600&q=75&auto=format&fit=crop" alt="Skincare products"><div class="gal-overlay"><span class="gal-lbl">Botanical Products</span></div></div>
+    <div class="gal-item tilt3d" data-category="bridal"><img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=600&q=75&auto=format&fit=crop" alt="Bridal preparation"><div class="gal-overlay"><span class="gal-lbl">Bridal Preparation</span></div></div>
+    <div class="gal-item tilt3d" data-category="spa"><img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&q=75&auto=format&fit=crop" alt="Spa atmosphere"><div class="gal-overlay"><span class="gal-lbl">Botanical Atmosphere</span></div></div>
+    <div class="gal-item tilt3d" data-category="massage"><img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=600&q=75&auto=format&fit=crop" alt="Hot stone massage"><div class="gal-overlay"><span class="gal-lbl">Hot Stone Ritual</span></div></div>
+    <div class="gal-item tilt3d" data-category="nails"><img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=600&q=75&auto=format&fit=crop" alt="Nail artistry"><div class="gal-overlay"><span class="gal-lbl">Nail Artistry</span></div></div>
+    <div class="gal-item tilt3d" data-category="facial"><img src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=600&q=75&auto=format&fit=crop" alt="Natural ingredients"><div class="gal-overlay"><span class="gal-lbl">Natural Ingredients</span></div></div>
+    <div class="gal-item tilt3d" data-category="spa"><img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600&q=75&auto=format&fit=crop" alt="Steam room"><div class="gal-overlay"><span class="gal-lbl">Steam & Wellness</span></div></div>
+    <div class="gal-item tilt3d" data-category="hair"><img src="https://images.unsplash.com/photo-1607779097040-26e80aa78e66?w=600&q=75&auto=format&fit=crop" alt="Hair colouring"><div class="gal-overlay"><span class="gal-lbl">Organic Colour</span></div></div>
+    <div class="gal-item tilt3d" data-category="bridal"><img src="https://images.unsplash.com/photo-1467992096391-a25a1734b95c?w=600&q=75&auto=format&fit=crop" alt="Bridal hair"><div class="gal-overlay"><span class="gal-lbl">Bridal Hair Styling</span></div></div>
+    <div class="gal-item tilt3d" data-category="massage"><img src="https://images.unsplash.com/photo-1591343395082-e120087004b4?w=600&q=75&auto=format&fit=crop" alt="Aromatherapy"><div class="gal-overlay"><span class="gal-lbl">Aromatherapy Journey</span></div></div>
+    <div class="gal-item tilt3d" data-category="nails"><img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=600&q=75&auto=format&fit=crop" alt="Manicure"><div class="gal-overlay"><span class="gal-lbl">Botanical Manicure</span></div></div>
+    <div class="gal-item tilt3d" data-category="spa"><img src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=600&q=75&auto=format&fit=crop" alt="Spa candles"><div class="gal-overlay"><span class="gal-lbl">Botanical Ritual Space</span></div></div>
+    <div class="gal-item tilt3d" data-category="facial"><img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=600&q=75&auto=format&fit=crop" alt="Facial mask"><div class="gal-overlay"><span class="gal-lbl">Plant Stem-Cell Mask</span></div></div>
+  </div>
+
+</div>
+</section>
+</main>
+
+<!-- LIGHTBOX -->
+<div class="lb" id="lb"><img class="lb-img" id="lb-img" src="" alt=""><div class="lb-close" id="lb-close">✕</div><div class="lb-cap" id="lb-cap"></div></div>
+
+<div id="ft-ph"></div>
+<script src="shared.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded',()=>{
+  // FILTER
+  document.querySelectorAll('.gf-btn').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      document.querySelectorAll('.gf-btn').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      const f=btn.dataset.filter;
+      document.querySelectorAll('.gal-item').forEach(item=>{
+        const show=f==='all'||item.dataset.category===f;
+        item.style.transition='opacity .3s,transform .3s';
+        if(show){item.style.display='block';item.style.opacity='0';item.style.transform='scale(.95)';requestAnimationFrame(()=>requestAnimationFrame(()=>{item.style.opacity='1';item.style.transform=''}));}
+        else{item.style.opacity='0';item.style.transform='scale(.95)';setTimeout(()=>{item.style.display='none';},300);}
+      });
+    });
+  });
+
+  // LIGHTBOX
+  const lb=document.getElementById('lb'),lbImg=document.getElementById('lb-img'),lbCap=document.getElementById('lb-cap'),lbClose=document.getElementById('lb-close');
+  document.querySelectorAll('.gal-item').forEach(item=>{
+    item.addEventListener('click',()=>{
+      const img=item.querySelector('img'),lbl=item.querySelector('.gal-lbl');
+      lbImg.src=img.src.replace('w=600','w=1200');
+      lbImg.alt=img.alt;
+      lbCap.textContent=lbl?lbl.textContent:'';
+      lb.classList.add('open');
+      document.body.style.overflow='hidden';
+    });
+  });
+  [lbClose,lb].forEach(el=>el.addEventListener('click',(e)=>{
+    if(e.target===lb||e.target===lbClose){lb.classList.remove('open');document.body.style.overflow='';}
+  }));
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'){lb.classList.remove('open');document.body.style.overflow='';}});
+});
+</script>
+</body>
+</html>

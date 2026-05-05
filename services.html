@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Services — Lumière Spa</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.svc-cat{padding:3.5rem 0;border-bottom:1px solid var(--parchment)}
+.svc-cat:last-child{border-bottom:none}
+.svc-cat-hdr{display:grid;grid-template-columns:220px 1fr;gap:4rem;align-items:start}
+.svc-cat-title{font-family:var(--serif);font-size:2.2rem;font-weight:400;line-height:1.18;position:sticky;top:calc(var(--nav) + 2rem)}
+.svc-cat-title em{font-style:italic;color:var(--terra)}
+.sitem{display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:center;padding:1.4rem 1rem;border-bottom:1px solid var(--parchment);transition:padding-left .3s,background .3s;cursor:default;border-radius:3px}
+.sitem:last-child{border-bottom:none}
+.sitem:hover{padding-left:1.6rem;background:rgba(181,100,60,.04)}
+.sitem-name{font-family:var(--serif);font-size:1.16rem;font-weight:400;color:var(--bark);margin-bottom:.18rem;transition:color .3s}
+.sitem:hover .sitem-name{color:var(--terra)}
+.sitem-desc{font-size:.79rem;color:var(--bark3);line-height:1.5}
+.sitem-dur{font-size:.7rem;color:var(--bark3);margin-top:.2rem;display:flex;align-items:center;gap:5px}
+.sitem-r{text-align:right}
+.sitem-price{font-family:var(--serif);font-size:1.45rem;font-weight:300;color:var(--terra);white-space:nowrap;display:block}
+.sitem-from{font-size:.64rem;letter-spacing:.08em;text-transform:uppercase;color:var(--bark3)}
+
+.book-banner{background:var(--terra);color:#fff;padding:2.5rem 0;text-align:center}
+.book-banner p{font-family:var(--serif);font-size:1.6rem;font-weight:300;margin-bottom:1.2rem}
+.book-banner p em{font-style:italic}
+
+@media(max-width:900px){.svc-cat-hdr{grid-template-columns:1fr;gap:1.5rem}.svc-cat-title{position:static}}
+</style>
+</head>
+<body>
+<div id="nav-ph"></div>
+
+<div class="pg-hero">
+  <div class="pg-hero-inner wrap">
+    <div class="label fu" style="justify-content:center">What We Offer</div>
+    <h1><em>Our Treatments</em></h1>
+    <p>Each service is a ritual — a carefully choreographed sequence of botanical techniques designed to restore, renew, and reveal your most luminous self.</p>
+  </div>
+</div>
+
+<div class="marquee-wrap" aria-hidden="true">
+  <div class="mq-row"><div class="mq-track">
+    <div class="mi"><span class="mi-dot"></span>Botanical Facials</div><div class="mi"><span class="mi-dot"></span>Ritual Massage</div><div class="mi"><span class="mi-dot"></span>Body Wraps</div><div class="mi"><span class="mi-dot"></span>Hair Studio</div><div class="mi"><span class="mi-dot"></span>Nails</div><div class="mi"><span class="mi-dot"></span>Bridal</div><div class="mi"><span class="mi-dot"></span>Aromatherapy</div><div class="mi"><span class="mi-dot"></span>Hot Stone</div><div class="mi"><span class="mi-dot"></span>Botanical Facials</div><div class="mi"><span class="mi-dot"></span>Ritual Massage</div><div class="mi"><span class="mi-dot"></span>Body Wraps</div><div class="mi"><span class="mi-dot"></span>Hair Studio</div><div class="mi"><span class="mi-dot"></span>Nails</div><div class="mi"><span class="mi-dot"></span>Bridal</div><div class="mi"><span class="mi-dot"></span>Aromatherapy</div><div class="mi"><span class="mi-dot"></span>Hot Stone</div>
+  </div></div>
+</div>
+
+<main>
+<section class="sp" style="background:var(--cream)">
+<div class="wrap">
+
+  <!-- FACIALS -->
+  <div class="svc-cat" id="facials">
+    <div class="svc-cat-hdr">
+      <h2 class="svc-cat-title fu">Botanical<br><em>Facials</em></h2>
+      <div class="sitem-list">
+        <div class="sitem fu">
+          <div><div class="sitem-name">Lumière Botanical Ritual</div><div class="sitem-desc">Our signature four-layer treatment: cleanse, enzyme exfoliation, herbal compress, stem-cell mask</div><div class="sitem-dur"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 90 mins</div></div>
+          <div class="sitem-r"><span class="sitem-price">£185</span><span class="sitem-from">incl. consultation</span></div>
+        </div>
+        <div class="sitem fu">
+          <div><div class="sitem-name">Deep Hydration Facial</div><div class="sitem-desc">Hyaluronic-rich botanical serum infusion with lymphatic drainage massage and jade roller finish</div><div class="sitem-dur"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 60 mins</div></div>
+          <div class="sitem-r"><span class="sitem-price">£95</span></div>
+        </div>
+        <div class="sitem fu">
+          <div><div class="sitem-name">Brightening Vitamin C Ritual</div><div class="sitem-desc">Kakadu plum-based treatment targeting uneven tone, dark spots and dullness with instant luminosity</div><div class="sitem-dur"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 75 mins</div></div>
+          <div class="sitem-r"><span class="sitem-price">£120</span></div>
+        </div>
+        <div class="sitem fu">
+          <div><div class="sitem-name">Resurfacing AHA Peel</div><div class="sitem-desc">Lactic and glycolic acid blend with post-peel botanical soothing mask. Suitable for most skin types</div><div class="sitem-dur"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 45 mins</div></div>
+          <div class="sitem-r"><span class="sitem-price">£80</span></div>
+        </div>
+        <div class="sitem fu">
+          <div><div class="sitem-name">Men's Botanical Facial</div><div class="sitem-desc">Specially formulated for men's skin: deep pore cleanse, ingrown-hair treatment, and barrier repair</div><div class="sitem-dur"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 60 mins</div></div>
+          <div class="sitem-r"><span class="sitem-price">£90</span></div>
+        </div>
+        <div class="sitem fu">
+          <div><div class="sitem-name">Express Radiance Facial</div><div class="sitem-desc">A quick refresh for busy schedules: cleanse, micro-exfoliation, and a concentrated antioxidant mask</div><div class="sitem-dur"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 30 mins</div></div>
+          <div class="sitem-r"><span class="sitem-price">£55</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MASSAGE -->
+  <div class="svc-cat" id="massage">
+    <div class="svc-cat-hdr">
+      <h2 class="svc-cat-title fu">Ritual<br><em>Massage</em></h2>
+      <div>
+        <div class="sitem fu">
+          <div><div class="sitem-name">Swedish Botanical Massage</div><div class="sitem-desc">Classic relaxation massage enhanced with our signature warm botanical oil blend of lavender, chamomile and rosehip</div><div class="sitem-dur"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 60 / 90 mins</div></div>
+          <div class="sitem-r"><span class="sitem-price">£85 / £125</span></div>
+        </div>
+        <div class="sitem fu">
+          <div><div class="sitem-name">Deep Tissue Release</div><div class="sitem-desc">Targeted deep-tissue work with muscle-melting hot botanical compress for chronic tension and knots</div><div class="sitem-dur"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 60 / 90 mins</div></div>
+          <div class="sitem-r"><span class="sitem-price">£95 / £140</span></div>
+        </div>
+        <div class="sitem fu">
+          <div><div class="sitem-name">Hot Stone Ritual</div><div class="sitem-desc">Volcanic basalt stones heated in botanical herb infusions, melting tension as they glide across the body</div><div class="sitem-dur"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 90 mins</div></div>
+          <div class="sitem-r"><span class="sitem-price">£150</span></div>
+        </div>
+        <div class="sitem fu">
+          <div><div class="sitem-name">Pregnancy Massage</div><div class="sitem-desc">Gentle, specially adapted massage for expectant mothers using safe botanical oils. From 2nd trimester</div><div class="sitem-dur"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 60 mins</div></div>
+          <div class="sitem-r"><span class="sitem-price">£90</span></div>
+        </div>
+        <div class="sitem fu">
+          <div><div class="sitem-name">Couples Ritual Massage</div><div class="sitem-desc">Side-by-side Swedish or deep-tissue massage in our private couples suite with champagne and fruit platter</div><div class="sitem-dur"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 90 mins</div></div>
+          <div class="sitem-r"><span class="sitem-price">£280</span><span class="sitem-from">per couple</span></div>
+        </div>
+        <div class="sitem fu">
+          <div><div class="sitem-name">Aromatherapy Journey</div><div class="sitem-desc">Personalised blend of pure essential oils chosen by your therapist for your mood and specific wellness goals</div><div class="sitem-dur"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 75 mins</div></div>
+          <div class="sitem-r"><span class="sitem-price">£115</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BODY -->
+  <div class="svc-cat" id="body">
+    <div class="svc-cat-hdr">
+      <h2 class="svc-cat-title fu">Body<br><em>Treatments</em></h2>
+      <div>
+        <div class="sitem fu">
+          <div><div class="sitem-name">Seaweed Mineral Wrap</div><div class="sitem-desc">Atlantic seaweed-based wrap rich in minerals and iodine, reducing puffiness and hydrating deeply</div><div class="sitem-dur"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 75 mins</div></div>
+          <div class="sitem-r"><span class="sitem-price">£130</span></div>
+        </div>
+        <div class="sitem fu">
+          <div><div class="sitem-name">Volcanic Clay Detox Wrap</div><div class="sitem-desc">Deep-cleansing bentonite clay wrap with warming spices to draw out impurities and stimulate circulation</div><div class="sitem-dur"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 75 mins</div></div>
+          <div class="sitem-r"><span class="sitem-price">£125</span></div>
+        </div>
+        <div class="sitem fu">
+          <div><div class="sitem-name">Botanical Sugar Scrub</div><div class="sitem-desc">Full-body exfoliation using brown sugar, rosehip oil and botanical extracts, leaving skin silky and luminous</div><div class="sitem-dur"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 45 mins</div></div>
+          <div class="sitem-r"><span class="sitem-price">£75</span></div>
+        </div>
+        <div class="sitem fu">
+          <div><div class="sitem-name">Coffee & Coconut Body Polish</div><div class="sitem-desc">Energising full-body polish combining arabica coffee grounds, coconut oil and vanilla to smooth and firm</div><div class="sitem-dur"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 45 mins</div></div>
+          <div class="sitem-r"><span class="sitem-price">£70</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HAIR -->
+  <div class="svc-cat" id="hair">
+    <div class="svc-cat-hdr">
+      <h2 class="svc-cat-title fu">Hair<br><em>Studio</em></h2>
+      <div>
+        <div class="sitem fu"><div><div class="sitem-name">Signature Cut & Blow-Dry</div><div class="sitem-desc">Personalised consultation, precision cut by a master stylist, and full botanical blow-dry with heat protection</div><div class="sitem-dur"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 60–90 mins</div></div><div class="sitem-r"><span class="sitem-price">from £75</span></div></div>
+        <div class="sitem fu"><div><div class="sitem-name">Organic Colour</div><div class="sitem-desc">Ammonia-free, PPD-free organic colour in a full range of shades. Includes botanical hair mask finish</div><div class="sitem-dur"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 90–150 mins</div></div><div class="sitem-r"><span class="sitem-price">from £90</span></div></div>
+        <div class="sitem fu"><div><div class="sitem-name">Botanical Keratin Treatment</div><div class="sitem-desc">Formaldehyde-free smoothing treatment using plant-derived keratin for frizz-free, glossy hair for up to 4 months</div><div class="sitem-dur"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 120 mins</div></div><div class="sitem-r"><span class="sitem-price">£185</span></div></div>
+        <div class="sitem fu"><div><div class="sitem-name">Scalp Revival Ritual</div><div class="sitem-desc">Targeted scalp treatment for dandruff, oiliness or thinning. Includes scalp analysis, treatment mask and massage</div><div class="sitem-dur"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 60 mins</div></div><div class="sitem-r"><span class="sitem-price">£95</span></div></div>
+        <div class="sitem fu"><div><div class="sitem-name">Bridal Hair Styling</div><div class="sitem-desc">Consultation, trial session, and wedding-day styling with our award-winning bridal hair team</div><div class="sitem-dur"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 90–120 mins</div></div><div class="sitem-r"><span class="sitem-price">from £150</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAILS -->
+  <div class="svc-cat" id="nails">
+    <div class="svc-cat-hdr">
+      <h2 class="svc-cat-title fu">Nail<br><em>Artistry</em></h2>
+      <div>
+        <div class="sitem fu"><div><div class="sitem-name">Botanical Manicure</div><div class="sitem-desc">Shaping, cuticle care, exfoliating hand scrub, warm botanical oil soak, hand massage and polish</div><div class="sitem-dur"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 45 mins</div></div><div class="sitem-r"><span class="sitem-price">£50</span></div></div>
+        <div class="sitem fu"><div><div class="sitem-name">Botanical Pedicure</div><div class="sitem-desc">Botanical foot soak, callus removal, exfoliation, extended foot and leg massage, and your colour of choice</div><div class="sitem-dur"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 60 mins</div></div><div class="sitem-r"><span class="sitem-price">£65</span></div></div>
+        <div class="sitem fu"><div><div class="sitem-name">Gel Manicure</div><div class="sitem-desc">Long-lasting gel polish in 200+ colours. Includes full botanical manicure treatment and hand massage</div><div class="sitem-dur"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 60 mins</div></div><div class="sitem-r"><span class="sitem-price">£65</span></div></div>
+        <div class="sitem fu"><div><div class="sitem-name">Nail Art Session</div><div class="sitem-desc">Bespoke nail art by our specialist artists — from botanical motifs to abstract designs and 3D embellishments</div><div class="sitem-dur"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 75 mins</div></div><div class="sitem-r"><span class="sitem-price">from £85</span></div></div>
+        <div class="sitem fu"><div><div class="sitem-name">Mani &amp; Pedi Duo</div><div class="sitem-desc">The full botanical nail experience — complete manicure and pedicure at a special combined price</div><div class="sitem-dur"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 100 mins</div></div><div class="sitem-r"><span class="sitem-price">£105</span><span class="sitem-from">save £10</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BRIDAL -->
+  <div class="svc-cat" id="bridal">
+    <div class="svc-cat-hdr">
+      <h2 class="svc-cat-title fu">Bridal<br><em>Packages</em></h2>
+      <div>
+        <div class="sitem fu"><div><div class="sitem-name">The Lumière Bride</div><div class="sitem-desc">3 pre-wedding facials + body wrap + hair styling + makeup on the day. Our most comprehensive bridal package</div><div class="sitem-dur"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Multiple sessions</div></div><div class="sitem-r"><span class="sitem-price">£650</span><span class="sitem-from">save £120</span></div></div>
+        <div class="sitem fu"><div><div class="sitem-name">Pre-Wedding Skin Programme</div><div class="sitem-desc">6-week bespoke skin plan with monthly facials, home care kit, and final-week prep facial included</div><div class="sitem-dur"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 6 weeks</div></div><div class="sitem-r"><span class="sitem-price">£380</span></div></div>
+        <div class="sitem fu"><div><div class="sitem-name">Bridal Party Package</div><div class="sitem-desc">Hair and makeup for the full bridal party. Pricing per person, minimum 4 guests. Includes refreshments</div><div class="sitem-dur"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Half day</div></div><div class="sitem-r"><span class="sitem-price">from £130</span><span class="sitem-from">per person</span></div></div>
+        <div class="sitem fu"><div><div class="sitem-name">Morning-of Spa Morning</div><div class="sitem-desc">Champagne breakfast + botanical facial + hair and makeup, all in the tranquility of our private suite</div><div class="sitem-dur"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 4 hours</div></div><div class="sitem-r"><span class="sitem-price">£295</span></div></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</section>
+
+<!-- BOOK BANNER -->
+<div class="book-banner">
+  <div class="wrap text-center">
+    <p>Ready to begin your <em>botanical journey?</em></p>
+    <a href="booking.html" class="btn btn-line-lt">Book Your Treatment <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+  </div>
+</div>
+
+</main>
+<div id="ft-ph"></div>
+<script src="shared.js"></script>
+</body>
+</html>
