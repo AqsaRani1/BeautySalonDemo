@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Journal — Lumière Spa</title>
+<link rel="stylesheet" href="style.css">
+<style>
+/* FEATURED */
+.blog-featured{display:grid;grid-template-columns:1.3fr 1fr;gap:3.5rem;align-items:center;margin-bottom:4rem}
+.bf-img{aspect-ratio:16/11;overflow:hidden;border-radius:6px;box-shadow:0 20px 60px rgba(46,32,22,.18);position:relative}
+.bf-img img{width:100%;height:100%;object-fit:cover;transition:transform .7s ease}
+.bf-img:hover img{transform:scale(1.04)}
+.bf-badge{position:absolute;top:1.2rem;left:1.2rem;background:var(--terra);color:#fff;padding:.3rem .85rem;font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;border-radius:2px}
+.bf-cat{font-size:.63rem;letter-spacing:.18em;text-transform:uppercase;color:var(--terra);margin-bottom:.6rem}
+.bf-title{font-family:var(--serif);font-size:clamp(1.7rem,2.8vw,2.5rem);font-weight:400;line-height:1.22;margin-bottom:1rem;transition:color .3s;cursor:pointer}
+.bf-title:hover{color:var(--terra)}
+.bf-exc{font-size:.88rem;color:var(--bark2);line-height:1.75;margin-bottom:1.4rem}
+.bf-meta{font-size:.72rem;color:var(--bark3);display:flex;align-items:center;gap:.7rem}
+.bf-meta-dot{width:3px;height:3px;border-radius:50%;background:var(--sand)}
+
+/* BLOG GRID */
+.blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.8rem}
+.bcard{display:flex;flex-direction:column;background:var(--cream);border-radius:5px;overflow:hidden;border:1px solid transparent;transition:border-color .3s,transform .35s,box-shadow .35s;cursor:pointer}
+.bcard:hover{border-color:var(--parchment);transform:translateY(-6px);box-shadow:0 18px 48px rgba(46,32,22,.11)}
+.bcard-img{aspect-ratio:16/10;overflow:hidden;background:var(--parchment)}
+.bcard-img img{width:100%;height:100%;object-fit:cover;transition:transform .65s ease}
+.bcard:hover .bcard-img img{transform:scale(1.07)}
+.bcard-body{padding:1.2rem 1.4rem 1.5rem;display:flex;flex-direction:column;gap:.75rem;flex:1}
+.bcat{font-size:.63rem;letter-spacing:.18em;text-transform:uppercase;color:var(--terra)}
+.bcard h3{font-family:var(--serif);font-size:1.22rem;font-weight:400;line-height:1.28;transition:color .3s}
+.bcard:hover h3{color:var(--terra)}
+.bcard p{font-size:.81rem;color:var(--bark2);line-height:1.65;flex:1}
+.bmeta{font-size:.71rem;color:var(--bark3);display:flex;align-items:center;gap:.6rem;margin-top:.2rem}
+.bmeta-dot{width:3px;height:3px;border-radius:50%;background:var(--sand)}
+.bcard-tag{display:inline-block;padding:.22rem .65rem;background:var(--cream2);border-radius:2px;font-size:.63rem;letter-spacing:.07em;color:var(--bark3)}
+
+/* SECTION DIVIDER */
+.section-line{display:flex;align-items:center;gap:1.5rem;margin:3.5rem 0}
+.section-line::before,.section-line::after{content:'';flex:1;height:1px;background:var(--parchment)}
+.section-line-text{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--bark3);white-space:nowrap}
+
+/* NEWSLETTER */
+.newsletter{background:var(--bark);padding:4rem 0;text-align:center}
+.newsletter h3{font-family:var(--serif);font-size:clamp(1.8rem,3vw,2.6rem);font-weight:300;color:var(--cream);margin:.5rem 0 .8rem}
+.newsletter h3 em{font-style:italic;color:var(--sand)}
+.newsletter p{font-size:.88rem;color:rgba(247,242,234,.55);max-width:440px;margin:0 auto 2rem}
+.nl-form{display:flex;gap:.6rem;max-width:440px;margin:0 auto;flex-wrap:wrap;justify-content:center}
+.nl-input{flex:1;min-width:220px;padding:.8rem 1.1rem;background:rgba(247,242,234,.08);border:1px solid rgba(247,242,234,.18);border-radius:2px;color:var(--cream);font-size:.88rem;font-weight:300;font-family:var(--sans);transition:border-color .3s}
+.nl-input::placeholder{color:rgba(247,242,234,.35)}
+.nl-input:focus{outline:none;border-color:var(--sand)}
+.nl-btn{padding:.8rem 1.8rem;background:var(--terra);color:#fff;font-family:var(--sans);font-size:.71rem;letter-spacing:.13em;text-transform:uppercase;border-radius:2px;cursor:pointer;transition:background .3s;white-space:nowrap;border:none}
+.nl-btn:hover{background:var(--terra-dark, #8C4628)}
+
+/* CATEGORIES SIDEBAR ROW */
+.cat-row{display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:2.5rem}
+.cat-btn{padding:.4rem 1rem;border:1px solid var(--parchment);background:none;color:var(--bark2);font-size:.69rem;letter-spacing:.12em;text-transform:uppercase;border-radius:2px;cursor:pointer;transition:.3s;font-family:var(--sans)}
+.cat-btn:hover,.cat-btn.active{background:var(--bark);border-color:var(--bark);color:var(--cream)}
+
+@media(max-width:1000px){.blog-featured{grid-template-columns:1fr;gap:2rem}}
+@media(max-width:700px){.blog-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.blog-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div id="nav-ph"></div>
+
+<div class="pg-hero">
+  <div class="pg-hero-inner wrap">
+    <div class="label fu" style="justify-content:center">Wellness & Beauty Wisdom</div>
+    <h1>The <em>Lumière Journal</em></h1>
+    <p>Expert insights on botanical skincare, holistic wellness rituals, seasonal beauty, and the science behind the treatments we love.</p>
+  </div>
+</div>
+
+<main>
+<section class="sp" style="background:var(--cream)">
+<div class="wrap">
+
+  <!-- FEATURED ARTICLE -->
+  <div class="blog-featured">
+    <div class="bf-img fu">
+      <img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?w=800&q=80&auto=format&fit=crop" alt="Bakuchiol skincare article">
+      <span class="bf-badge">Editor's Pick</span>
+    </div>
+    <div class="fu">
+      <div class="bf-cat">Skincare Science</div>
+      <h2 class="bf-title">Why Bakuchiol Is the Botanical Retinol Your Skin Has Been Waiting For</h2>
+      <p class="bf-exc">We explore how this plant-derived wonder ingredient — extracted from the seeds of the Babchi plant — compares to traditional retinol, and why our lead aesthetician Isabelle Laurent is calling it the most exciting botanical breakthrough of the decade.</p>
+      <div class="bf-meta">
+        <span>By Isabelle Laurent</span><span class="bf-meta-dot"></span>
+        <span>14 March 2025</span><span class="bf-meta-dot"></span>
+        <span>6 min read</span>
+      </div>
+      <div style="margin-top:1.5rem">
+        <a href="#" class="btn btn-line">Read Article <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- CATEGORY FILTER -->
+  <div class="cat-row fu">
+    <button class="cat-btn active" data-cat="all">All Articles</button>
+    <button class="cat-btn" data-cat="skincare">Skincare Science</button>
+    <button class="cat-btn" data-cat="wellness">Seasonal Wellness</button>
+    <button class="cat-btn" data-cat="aroma">Aromatherapy</button>
+    <button class="cat-btn" data-cat="hair">Hair & Scalp</button>
+    <button class="cat-btn" data-cat="nutrition">Beauty Nutrition</button>
+    <button class="cat-btn" data-cat="insider">Spa Insider</button>
+  </div>
+
+  <!-- BLOG GRID -->
+  <div class="blog-grid" id="blog-grid">
+
+    <div class="bcard fu" data-cat="wellness">
+      <div class="bcard-img"><img src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=500&q=80&auto=format&fit=crop" alt="Spring wellness" loading="lazy"></div>
+      <div class="bcard-body">
+        <span class="bcat">Seasonal Wellness</span>
+        <h3>Five Spring Rituals to Awaken Your Skin After Winter</h3>
+        <p>As the season shifts, your skin craves renewal. Our therapists share five botanical rituals to transition your skincare routine and restore winter-weary complexions.</p>
+        <div class="bmeta"><span>Maya Okafor</span><span class="bmeta-dot"></span><span>28 Feb 2025</span><span class="bmeta-dot"></span><span>4 min</span></div>
+      </div>
+    </div>
+
+    <div class="bcard fu" data-cat="aroma">
+      <div class="bcard-img"><img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=500&q=80&auto=format&fit=crop" alt="Aromatherapy oils" loading="lazy"></div>
+      <div class="bcard-body">
+        <span class="bcat">Aromatherapy</span>
+        <h3>The Complete Guide to Essential Oil Blending for Stress Relief</h3>
+        <p>From lavender and bergamot to frankincense and clary sage — how to blend essential oils that genuinely calm the nervous system and improve sleep quality.</p>
+        <div class="bmeta"><span>Ravi Sharma</span><span class="bmeta-dot"></span><span>10 Feb 2025</span><span class="bmeta-dot"></span><span>5 min</span></div>
+      </div>
+    </div>
+
+    <div class="bcard fu" data-cat="hair">
+      <div class="bcard-img"><img src="https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?w=500&q=80&auto=format&fit=crop" alt="Hair care article" loading="lazy"></div>
+      <div class="bcard-body">
+        <span class="bcat">Hair & Scalp</span>
+        <h3>Scalp Health Is the New Skincare: Here's What You're Missing</h3>
+        <p>The scalp is skin too — and its health directly affects hair growth, density and shine. Chloé Whitmore shares her expert protocol for a thriving scalp ecosystem.</p>
+        <div class="bmeta"><span>Chloé Whitmore</span><span class="bmeta-dot"></span><span>22 Jan 2025</span><span class="bmeta-dot"></span><span>5 min</span></div>
+      </div>
+    </div>
+
+    <div class="bcard fu" data-cat="skincare">
+      <div class="bcard-img"><img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=500&q=80&auto=format&fit=crop" alt="Facial mask" loading="lazy"></div>
+      <div class="bcard-body">
+        <span class="bcat">Skincare Science</span>
+        <h3>Understanding Your Skin Barrier: Why It's Everything</h3>
+        <p>Breakouts, sensitivity, dehydration — most skin problems trace back to one culprit. Our lead aesthetician explains the skin barrier, why it breaks down, and how to repair it botanically.</p>
+        <div class="bmeta"><span>Isabelle Laurent</span><span class="bmeta-dot"></span><span>8 Jan 2025</span><span class="bmeta-dot"></span><span>7 min</span></div>
+      </div>
+    </div>
+
+    <div class="bcard fu" data-cat="nutrition">
+      <div class="bcard-img"><img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=500&q=80&auto=format&fit=crop" alt="Beauty nutrition" loading="lazy"></div>
+      <div class="bcard-body">
+        <span class="bcat">Beauty Nutrition</span>
+        <h3>Eat for Radiance: 10 Foods That Transform Skin From Within</h3>
+        <p>True glow starts in the gut. We partner with a nutritional therapist to identify the 10 most powerful foods for skin clarity, elasticity and that elusive inner luminosity.</p>
+        <div class="bmeta"><span>Lumière Team</span><span class="bmeta-dot"></span><span>15 Dec 2024</span><span class="bmeta-dot"></span><span>6 min</span></div>
+      </div>
+    </div>
+
+    <div class="bcard fu" data-cat="insider">
+      <div class="bcard-img"><img src="https://images.unsplash.com/photo-1600334129128-685c5582fd35?w=500&q=80&auto=format&fit=crop" alt="Spa inside" loading="lazy"></div>
+      <div class="bcard-body">
+        <span class="bcat">Spa Insider</span>
+        <h3>Behind the Ritual: How We Source Our Botanical Ingredients</h3>
+        <p>From an organic lavender farm in Provence to a seaweed co-operative in County Clare — the story of how Lumière's ethically sourced botanicals travel from field to treatment room.</p>
+        <div class="bmeta"><span>Isabelle Laurent</span><span class="bmeta-dot"></span><span>2 Dec 2024</span><span class="bmeta-dot"></span><span>8 min</span></div>
+      </div>
+    </div>
+
+    <div class="bcard fu" data-cat="wellness">
+      <div class="bcard-img"><img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=500&q=80&auto=format&fit=crop" alt="Wellness ritual" loading="lazy"></div>
+      <div class="bcard-body">
+        <span class="bcat">Seasonal Wellness</span>
+        <h3>The Autumn Reset: A 4-Week Botanical Wellness Plan</h3>
+        <p>As daylight fades and energy dips, this four-week plan of targeted treatments, home rituals and nourishing practices will keep you glowing through to spring.</p>
+        <div class="bmeta"><span>Amelia Knox</span><span class="bmeta-dot"></span><span>18 Nov 2024</span><span class="bmeta-dot"></span><span>5 min</span></div>
+      </div>
+    </div>
+
+    <div class="bcard fu" data-cat="aroma">
+      <div class="bcard-img"><img src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=500&q=80&auto=format&fit=crop" alt="Candles and botanicals" loading="lazy"></div>
+      <div class="bcard-body">
+        <span class="bcat">Aromatherapy</span>
+        <h3>Creating a Home Sanctuary: Scent, Ritual and Rest</h3>
+        <p>Your home can feel as restorative as a spa. Ravi shares his expert guide to creating a botanical sanctuary at home — from diffuser blends to bath ritual recipes.</p>
+        <div class="bmeta"><span>Ravi Sharma</span><span class="bmeta-dot"></span><span>5 Nov 2024</span><span class="bmeta-dot"></span><span>4 min</span></div>
+      </div>
+    </div>
+
+    <div class="bcard fu" data-cat="hair">
+      <div class="bcard-img"><img src="https://images.unsplash.com/photo-1607779097040-26e80aa78e66?w=500&q=80&auto=format&fit=crop" alt="Organic hair colour" loading="lazy"></div>
+      <div class="bcard-body">
+        <span class="bcat">Hair & Scalp</span>
+        <h3>Going Organic: Your Questions About Ammonia-Free Colour Answered</h3>
+        <p>Curious about organic hair colour but worried it won't deliver? Our master colourist Chloé answers every question — from coverage to longevity to maintenance.</p>
+        <div class="bmeta"><span>Chloé Whitmore</span><span class="bmeta-dot"></span><span>20 Oct 2024</span><span class="bmeta-dot"></span><span>5 min</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="text-align:center;margin-top:3rem" class="fu">
+    <a href="#" class="btn btn-line">Load More Articles <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg></a>
+  </div>
+
+</div>
+</section>
+
+<!-- NEWSLETTER -->
+<div class="newsletter">
+  <div class="wrap">
+    <div class="label fu" style="justify-content:center;color:var(--sand)"><span style="background:var(--sand);width:28px;height:1px;display:inline-block"></span>Join Our Community</div>
+    <h3 class="fu">Botanical wisdom <em>delivered monthly</em></h3>
+    <p class="fu">Expert skincare tips, seasonal wellness rituals, exclusive member offers and first access to new treatments — straight to your inbox, never more than twice a month.</p>
+    <div class="nl-form fu">
+      <input type="email" class="nl-input" placeholder="Your email address">
+      <button class="nl-btn">Subscribe</button>
+    </div>
+    <p style="font-size:.72rem;color:rgba(247,242,234,.3);margin-top:1rem" class="fu">No spam, ever. Unsubscribe in one click. We protect your data.</p>
+  </div>
+</div>
+
+</main>
+<div id="ft-ph"></div>
+<script src="shared.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded',()=>{
+  // Category filter
+  document.querySelectorAll('.cat-btn').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      const cat=btn.dataset.cat;
+      document.querySelectorAll('#blog-grid .bcard').forEach(card=>{
+        const show=cat==='all'||card.dataset.cat===cat;
+        card.style.transition='opacity .3s,transform .3s';
+        if(show){card.style.display='flex';requestAnimationFrame(()=>{card.style.opacity='1';card.style.transform=''});}
+        else{card.style.opacity='0';card.style.transform='scale(.95)';setTimeout(()=>card.style.display='none',280);}
+      });
+    });
+  });
+
+  // Newsletter
+  const btn=document.querySelector('.nl-btn');
+  const inp=document.querySelector('.nl-input');
+  if(btn&&inp){
+    btn.addEventListener('click',()=>{
+      if(!inp.value.includes('@')){inp.style.borderColor='var(--terra)';return;}
+      btn.textContent='Subscribed!';
+      btn.style.background='var(--moss)';
+      inp.value='';
+      setTimeout(()=>{btn.textContent='Subscribe';btn.style.background='';},3000);
+    });
+  }
+});
+</script>
+</body>
+</html>

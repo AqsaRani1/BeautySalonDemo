@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Contact — Lumière Spa</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.contact-layout{display:grid;grid-template-columns:1fr 1.5fr;gap:5rem;align-items:start;padding-top:1rem}
+.contact-sticky{position:sticky;top:calc(var(--nav) + 2rem)}
+
+/* INFO ITEMS */
+.cinfo-item{display:flex;gap:1.3rem;padding:1.5rem 0;border-bottom:1px solid var(--parchment)}
+.cinfo-item:first-child{padding-top:0}
+.cinfo-item:last-child{border-bottom:none}
+.cinfo-ico{width:44px;height:44px;background:var(--parchment);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--terra);flex-shrink:0;transition:background .3s,transform .3s}
+.cinfo-item:hover .cinfo-ico{background:var(--terra);color:#fff;transform:scale(1.1)}
+.cinfo-lbl{font-size:.63rem;letter-spacing:.18em;text-transform:uppercase;color:var(--bark3);margin-bottom:.35rem}
+.cinfo-val{font-size:.92rem;color:var(--bark);line-height:1.65}
+.cinfo-val a:hover{color:var(--terra)}
+
+/* HOURS */
+.hours-grid{display:grid;grid-template-columns:1fr 1fr;gap:.4rem .8rem;margin-top:.3rem}
+.hday{font-size:.8rem;color:var(--bark3)}
+.htime{font-size:.8rem;color:var(--bark);font-weight:400}
+
+/* MAP */
+.map-wrap{width:100%;height:240px;border-radius:6px;overflow:hidden;margin-top:2rem;border:1px solid var(--parchment);position:relative;background:var(--cream2);display:flex;align-items:center;justify-content:center}
+.map-inner{background:linear-gradient(135deg,var(--sage) 0%,var(--moss) 100%);width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.8rem;opacity:.6}
+.map-pin-icon{animation:float2 3s ease-in-out infinite;color:var(--terra);filter:drop-shadow(0 4px 8px rgba(181,100,60,.5))}
+@keyframes float2{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.map-label{position:absolute;bottom:1rem;left:50%;transform:translateX(-50%);background:var(--bark);color:var(--cream);padding:.4rem 1rem;border-radius:2px;font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap}
+.map-grid-lines{position:absolute;inset:0;opacity:.08;background-image:repeating-linear-gradient(0deg,var(--bark) 0 1px,transparent 1px 40px),repeating-linear-gradient(90deg,var(--bark) 0 1px,transparent 1px 60px)}
+
+/* FORM */
+.cform{background:var(--cream);padding:2.5rem;border-radius:8px;box-shadow:0 12px 50px rgba(46,32,22,.09);display:flex;flex-direction:column;gap:1.3rem;position:relative;overflow:hidden}
+.cform::before{content:'';position:absolute;top:-40px;right:-40px;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,var(--parchment),transparent 70%);opacity:.5;pointer-events:none}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.fgroup{display:flex;flex-direction:column;gap:.45rem}
+.flabel{font-size:.69rem;letter-spacing:.14em;text-transform:uppercase;color:var(--bark2);font-weight:400}
+.finput,.fselect,.ftextarea{width:100%;padding:.82rem 1rem;background:var(--cream2);border:1px solid var(--parchment);border-radius:3px;font-size:.88rem;font-weight:300;color:var(--bark);transition:border-color .3s,background .3s,box-shadow .3s;-webkit-appearance:none;appearance:none}
+.finput:focus,.fselect:focus,.ftextarea:focus{outline:none;border-color:var(--terra);background:var(--cream);box-shadow:0 0 0 3px rgba(181,100,60,.1)}
+.finput::placeholder,.ftextarea::placeholder{color:var(--sand)}
+.ftextarea{resize:vertical;min-height:130px;line-height:1.65}
+.fselect{cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%236B4E38' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 1rem center}
+.fnote{font-size:.75rem;color:var(--bark3);line-height:1.5}
+.form-success{display:none;text-align:center;padding:2rem 1rem}
+.form-success-icon{width:60px;height:60px;background:var(--moss);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;color:#fff}
+.form-success h4{font-family:var(--serif);font-size:1.6rem;font-weight:400;margin-bottom:.5rem}
+.form-success p{font-size:.85rem;color:var(--bark2)}
+
+/* TRUST BADGES */
+.trust-row{display:flex;gap:2rem;flex-wrap:wrap;padding-top:1.5rem;border-top:1px solid var(--parchment);margin-top:.5rem}
+.trust-item{display:flex;align-items:center;gap:.6rem;font-size:.73rem;color:var(--bark3)}
+.trust-item svg{color:var(--moss);flex-shrink:0}
+
+@media(max-width:1000px){.contact-layout{grid-template-columns:1fr;gap:3rem}.contact-sticky{position:static}}
+@media(max-width:480px){.frow{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div id="nav-ph"></div>
+
+<div class="pg-hero">
+  <div class="pg-hero-inner wrap">
+    <div class="label fu" style="justify-content:center">We'd Love to Hear From You</div>
+    <h1>Get in <em>Touch</em></h1>
+    <p>Whether you'd like to book a treatment, have a question, or simply want to say hello — our team is here and always happy to help.</p>
+  </div>
+</div>
+
+<main>
+<section class="sp" style="background:var(--cream)">
+<div class="wrap">
+  <div class="contact-layout">
+
+    <!-- LEFT: INFO -->
+    <div class="contact-sticky">
+      <div class="label fu">Find Us</div>
+      <h2 class="h-sec fu" style="margin-bottom:1.8rem">Lumière <em>London</em></h2>
+
+      <div class="cinfo-item fu">
+        <div class="cinfo-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+        <div>
+          <div class="cinfo-lbl">Address</div>
+          <div class="cinfo-val">14 Rosewood Lane<br>Mayfair, London W1K 4PP<br><a href="https://maps.google.com" target="_blank" style="color:var(--terra);font-size:.8rem;margin-top:.3rem;display:inline-block">Get Directions →</a></div>
+        </div>
+      </div>
+
+      <div class="cinfo-item fu">
+        <div class="cinfo-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.69 19.79 19.79 0 01.1 6.12 2 2 0 012.11 4h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.91 11a16 16 0 006.06 6.06l.42-.42a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg></div>
+        <div>
+          <div class="cinfo-lbl">Phone</div>
+          <div class="cinfo-val"><a href="tel:+442071234567">+44 207 123 4567</a><br><span style="font-size:.78rem;color:var(--bark3)">Mon–Sat 9am–8pm for bookings</span></div>
+        </div>
+      </div>
+
+      <div class="cinfo-item fu">
+        <div class="cinfo-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+        <div>
+          <div class="cinfo-lbl">Email</div>
+          <div class="cinfo-val"><a href="mailto:hello@lumierespa.com">hello@lumierespa.com</a><br><span style="font-size:.78rem;color:var(--bark3)">We reply within 24 hours</span></div>
+        </div>
+      </div>
+
+      <div class="cinfo-item fu">
+        <div class="cinfo-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+        <div>
+          <div class="cinfo-lbl">Opening Hours</div>
+          <div class="hours-grid">
+            <span class="hday">Monday – Friday</span><span class="htime">9:00am – 8:00pm</span>
+            <span class="hday">Saturday</span><span class="htime">9:00am – 7:00pm</span>
+            <span class="hday">Sunday</span><span class="htime">10:00am – 6:00pm</span>
+            <span class="hday">Bank Holidays</span><span class="htime">10:00am – 5:00pm</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- MAP -->
+      <div class="map-wrap fu">
+        <div class="map-grid-lines"></div>
+        <div class="map-inner">
+          <svg class="map-pin-icon" width="40" height="50" viewBox="0 0 40 50" fill="none">
+            <path d="M20 2C11.2 2 4 9.2 4 18C4 30 20 48 20 48C20 48 36 30 36 18C36 9.2 28.8 2 20 2Z" fill="currentColor"/>
+            <circle cx="20" cy="18" r="7" fill="white" opacity=".9"/>
+          </svg>
+        </div>
+        <div class="map-label">14 Rosewood Lane, Mayfair W1K 4PP</div>
+      </div>
+    </div>
+
+    <!-- RIGHT: FORM -->
+    <div class="fu">
+      <div class="label">Send a Message</div>
+      <h2 class="h-sec" style="margin-bottom:1.8rem">How can we <em>help?</em></h2>
+
+      <div class="cform" id="contact-form-wrap">
+        <div id="form-fields">
+          <div style="display:flex;flex-direction:column;gap:1.3rem">
+            <div class="frow">
+              <div class="fgroup">
+                <label class="flabel" for="fname">First Name *</label>
+                <input class="finput" id="fname" type="text" placeholder="Your first name" required>
+              </div>
+              <div class="fgroup">
+                <label class="flabel" for="lname">Last Name *</label>
+                <input class="finput" id="lname" type="text" placeholder="Your last name" required>
+              </div>
+            </div>
+            <div class="frow">
+              <div class="fgroup">
+                <label class="flabel" for="femail">Email Address *</label>
+                <input class="finput" id="femail" type="email" placeholder="hello@email.com" required>
+              </div>
+              <div class="fgroup">
+                <label class="flabel" for="fphone">Phone Number</label>
+                <input class="finput" id="fphone" type="tel" placeholder="+44 ___">
+              </div>
+            </div>
+            <div class="fgroup">
+              <label class="flabel" for="fsubject">Subject *</label>
+              <select class="fselect" id="fsubject">
+                <option value="" disabled selected>Please select a topic</option>
+                <option>Book a Treatment</option>
+                <option>Membership Enquiry</option>
+                <option>Bridal Package Enquiry</option>
+                <option>Gift Card Purchase</option>
+                <option>Product Recommendation</option>
+                <option>Careers at Lumière</option>
+                <option>Press & Media</option>
+                <option>Other Enquiry</option>
+              </select>
+            </div>
+            <div class="fgroup">
+              <label class="flabel" for="fmsg">Message *</label>
+              <textarea class="ftextarea" id="fmsg" placeholder="Tell us how we can help — we'll get back to you within 24 hours…" required></textarea>
+            </div>
+            <div class="fgroup">
+              <label style="display:flex;align-items:flex-start;gap:.65rem;cursor:pointer;font-size:.8rem;color:var(--bark2);font-weight:300">
+                <input type="checkbox" id="foptin" style="margin-top:3px;accent-color:var(--terra)">
+                I'd like to receive Lumière's wellness journal, seasonal offers and treatment news (max twice monthly).
+              </label>
+            </div>
+            <p class="fnote">Fields marked * are required. We protect your data and never share it with third parties. View our <a href="#" style="color:var(--terra)">Privacy Policy</a>.</p>
+            <div class="trust-row">
+              <div class="trust-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Secure & confidential</div>
+              <div class="trust-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Reply within 24 hours</div>
+              <div class="trust-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.69 19.79 19.79 0 01.1 6.12 2 2 0 012.11 4h3a2 2 0 012 1.72"/></svg>Call us on +44 207 123 4567</div>
+            </div>
+            <button class="btn btn-fill" id="form-submit" style="justify-content:center;font-size:.75rem">
+              Send Message <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="form-success" id="form-success">
+          <div class="form-success-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <h4>Message Sent!</h4>
+          <p>Thank you for reaching out to Lumière Spa. We'll be in touch within 24 hours. In the meantime, you can reach us by phone on +44 207 123 4567.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</section>
+
+<!-- BOTTOM CTA -->
+<section class="sp bg-dark text-center">
+  <div class="wrap-sm">
+    <div class="label fu" style="justify-content:center">Can't Wait?</div>
+    <h2 class="h-sec fu">Book directly <em>online</em></h2>
+    <p class="fu" style="color:rgba(247,242,234,.6);font-size:.9rem;margin:.8rem auto 2rem;max-width:400px">Skip the enquiry form and go straight to booking your treatment — it takes less than 3 minutes.</p>
+    <a href="booking.html" class="btn btn-fill fu">Book Now <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+  </div>
+</section>
+
+</main>
+<div id="ft-ph"></div>
+<script src="shared.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded',()=>{
+  const btn=document.getElementById('form-submit');
+  const fields=document.getElementById('form-fields');
+  const success=document.getElementById('form-success');
+  if(!btn) return;
+  btn.addEventListener('click',()=>{
+    const fname=document.getElementById('fname').value.trim();
+    const femail=document.getElementById('femail').value.trim();
+    const fsubject=document.getElementById('fsubject').value;
+    const fmsg=document.getElementById('fmsg').value.trim();
+    if(!fname||!femail||!fsubject||!fmsg){
+      [document.getElementById('fname'),document.getElementById('femail'),document.getElementById('fsubject'),document.getElementById('fmsg')].forEach(el=>{
+        if(!el.value.trim()){el.style.borderColor='var(--terra)';el.style.background='rgba(181,100,60,.05)';}
+        else{el.style.borderColor='';el.style.background='';}
+      });
+      return;
+    }
+    btn.textContent='Sending…';
+    btn.disabled=true;
+    setTimeout(()=>{
+      fields.style.display='none';
+      success.style.display='block';
+    },1200);
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Our Team — Lumière Spa</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.team-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:2rem;margin-top:3rem}
+.team-card{border-radius:6px;overflow:hidden;background:var(--cream);transition:transform .4s cubic-bezier(.4,0,.2,1),box-shadow .4s;transform-style:preserve-3d;cursor:default}
+.team-card:hover{transform:perspective(900px) rotateY(-5deg) translateY(-8px);box-shadow:0 28px 65px rgba(46,32,22,.2)}
+.team-photo{aspect-ratio:3/4;overflow:hidden;position:relative;background:var(--parchment)}
+.team-photo img{width:100%;height:100%;object-fit:cover;object-position:top center;transition:transform .6s ease}
+.team-card:hover .team-photo img{transform:scale(1.06)}
+.team-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(46,32,22,.7) 0%,transparent 55%);opacity:0;transition:opacity .4s;display:flex;align-items:flex-end;padding:1.5rem}
+.team-card:hover .team-overlay{opacity:1}
+.team-quote{color:#fff;font-family:var(--serif);font-size:1.1rem;font-weight:300;font-style:italic;line-height:1.4}
+.team-body{padding:1.4rem 1.4rem 1.6rem;display:flex;flex-direction:column;gap:.6rem}
+.team-role{font-size:.63rem;letter-spacing:.2em;text-transform:uppercase;color:var(--terra)}
+.team-name{font-family:var(--serif);font-size:1.6rem;font-weight:400;line-height:1.15}
+.team-bio{font-size:.81rem;color:var(--bark2);line-height:1.65;margin-top:.2rem}
+.team-tags{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.4rem}
+.tag{padding:.28rem .75rem;background:var(--cream2);border-radius:2px;font-size:.67rem;letter-spacing:.07em;color:var(--bark2)}
+
+/* AWARDS STRIP */
+.awards{background:var(--bark);color:var(--cream);padding:3rem 0}
+.awards-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;text-align:center}
+.award-item{padding:1.5rem 1rem;border:1px solid rgba(247,242,234,.1);border-radius:4px;transition:border-color .3s,transform .3s}
+.award-item:hover{border-color:var(--sand);transform:translateY(-4px)}
+.award-icon{color:var(--gold);margin:0 auto 1rem;width:44px;height:44px;display:flex;align-items:center;justify-content:center}
+.award-title{font-family:var(--serif);font-size:1.1rem;font-weight:400;margin-bottom:.3rem}
+.award-body{font-size:.78rem;color:rgba(247,242,234,.55);line-height:1.5}
+
+/* JOIN CTA */
+.join-sec{background:var(--cream2);padding:var(--sp) 0;text-align:center}
+.join-sec h2{font-family:var(--serif);font-size:clamp(2rem,4vw,3rem);font-weight:400;margin:1rem 0 1rem}
+.join-sec h2 em{font-style:italic;color:var(--terra)}
+.join-sec p{font-size:.92rem;color:var(--bark2);max-width:480px;margin:0 auto 2rem}
+
+@media(max-width:900px){.awards-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.awards-grid{grid-template-columns:1fr}.team-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:380px){.team-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div id="nav-ph"></div>
+
+<div class="pg-hero">
+  <div class="pg-hero-inner wrap">
+    <div class="label fu" style="justify-content:center">The People Behind the Magic</div>
+    <h1>Meet <em>Our Team</em></h1>
+    <p>Twelve award-winning therapists, stylists and wellness practitioners — united by a shared passion for botanical beauty and genuine transformation.</p>
+  </div>
+</div>
+
+<main>
+<section class="sp" style="background:var(--cream)">
+<div class="wrap">
+
+  <div class="team-grid">
+
+    <div class="team-card fu">
+      <div class="team-photo">
+        <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=500&q=80&auto=format&fit=crop&face" alt="Isabelle Laurent">
+        <div class="team-overlay"><p class="team-quote">"Skin is the body's autobiography — I help you write a beautiful one."</p></div>
+      </div>
+      <div class="team-body">
+        <span class="team-role">Founder & Lead Aesthetician</span>
+        <h3 class="team-name">Isabelle Laurent</h3>
+        <p class="team-bio">With over 20 years in botanical aesthetics, Isabelle founded Lumière in 2008 with a singular vision: to make plant-powered wellness accessible and luxurious. Trained in Paris and Kyoto.</p>
+        <div class="team-tags"><span class="tag">Botanical Facials</span><span class="tag">Anti-Ageing</span><span class="tag">Skin Analysis</span></div>
+      </div>
+    </div>
+
+    <div class="team-card fu">
+      <div class="team-photo">
+        <img src="https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=500&q=80&auto=format&fit=crop" alt="Maya Okafor">
+        <div class="team-overlay"><p class="team-quote">"Every massage is a conversation between therapist and body."</p></div>
+      </div>
+      <div class="team-body">
+        <span class="team-role">Senior Massage Therapist</span>
+        <h3 class="team-name">Maya Okafor</h3>
+        <p class="team-bio">Maya is our hot-stone specialist with a background in traditional Thai and Swedish massage. She holds a Level 5 diploma in advanced body therapies and has been with Lumière since 2013.</p>
+        <div class="team-tags"><span class="tag">Hot Stone</span><span class="tag">Swedish</span><span class="tag">Deep Tissue</span></div>
+      </div>
+    </div>
+
+    <div class="team-card fu">
+      <div class="team-photo">
+        <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=500&q=80&auto=format&fit=crop" alt="Chloe Whitmore">
+        <div class="team-overlay"><p class="team-quote">"Hair is the crown you never take off — let's make it extraordinary."</p></div>
+      </div>
+      <div class="team-body">
+        <span class="team-role">Master Hair Stylist</span>
+        <h3 class="team-name">Chloé Whitmore</h3>
+        <p class="team-bio">Award-winning hair artist and colourist with 14 years of experience. Chloé specialises in organic colour and bridal styling, and has been featured in Vogue UK and Harper's Bazaar.</p>
+        <div class="team-tags"><span class="tag">Organic Colour</span><span class="tag">Bridal</span><span class="tag">Keratin</span></div>
+      </div>
+    </div>
+
+    <div class="team-card fu">
+      <div class="team-photo">
+        <img src="https://images.unsplash.com/photo-1607990281513-2c110a25bd8c?w=500&q=80&auto=format&fit=crop" alt="Ravi Sharma">
+        <div class="team-overlay"><p class="team-quote">"Ayurveda taught me that healing begins long before the hands touch the skin."</p></div>
+      </div>
+      <div class="team-body">
+        <span class="team-role">Holistic Wellness Practitioner</span>
+        <h3 class="team-name">Ravi Sharma</h3>
+        <p class="team-bio">Ravi brings Ayurvedic traditions to Lumière's treatment menu. Certified in Panchakarma and aromatherapy, he creates deeply personalised wellness rituals that balance mind and body.</p>
+        <div class="team-tags"><span class="tag">Ayurveda</span><span class="tag">Aromatherapy</span><span class="tag">Scalp Rituals</span></div>
+      </div>
+    </div>
+
+    <div class="team-card fu">
+      <div class="team-photo">
+        <img src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=500&q=80&auto=format&fit=crop" alt="Sophie Durand">
+        <div class="team-overlay"><p class="team-quote">"Beautiful nails are the tiniest canvases with the biggest impact."</p></div>
+      </div>
+      <div class="team-body">
+        <span class="team-role">Lead Nail Artist</span>
+        <h3 class="team-name">Sophie Durand</h3>
+        <p class="team-bio">Paris-trained nail artist with a signature style blending botanical motifs and fine-art techniques. Sophie's work has been exhibited at London Fashion Week and featured in Elle magazine.</p>
+        <div class="team-tags"><span class="tag">Nail Art</span><span class="tag">Gel</span><span class="tag">Botanical Mani</span></div>
+      </div>
+    </div>
+
+    <div class="team-card fu">
+      <div class="team-photo">
+        <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=500&q=80&auto=format&fit=crop" alt="Amelia Knox">
+        <div class="team-overlay"><p class="team-quote">"Pregnancy is the most luminous chapter — I help mums glow through every page."</p></div>
+      </div>
+      <div class="team-body">
+        <span class="team-role">Pregnancy & Wellness Specialist</span>
+        <h3 class="team-name">Amelia Knox</h3>
+        <p class="team-bio">Specialising in pre and postnatal care, Amelia holds a distinction in pregnancy massage and reflexology. Her gentle touch and expert knowledge make her a favourite among expectant mothers.</p>
+        <div class="team-tags"><span class="tag">Pregnancy Massage</span><span class="tag">Reflexology</span><span class="tag">Body Wraps</span></div>
+      </div>
+    </div>
+
+    <div class="team-card fu">
+      <div class="team-photo">
+        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=500&q=80&auto=format&fit=crop" alt="James Harrington">
+        <div class="team-overlay"><p class="team-quote">"Men's skincare deserves the same precision and care as any fine craft."</p></div>
+      </div>
+      <div class="team-body">
+        <span class="team-role">Men's Grooming Specialist</span>
+        <h3 class="team-name">James Harrington</h3>
+        <p class="team-bio">James pioneered Lumière's men's treatment range, combining classic barbering expertise with advanced botanical skincare. Former grooming editor at a leading London lifestyle publication.</p>
+        <div class="team-tags"><span class="tag">Men's Facial</span><span class="tag">Scalp Treatment</span><span class="tag">Deep Tissue</span></div>
+      </div>
+    </div>
+
+    <div class="team-card fu">
+      <div class="team-photo">
+        <img src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=500&q=80&auto=format&fit=crop" alt="Nina Petrova">
+        <div class="team-overlay"><p class="team-quote">"A bride's glow starts weeks before the wedding — I help her get there."</p></div>
+      </div>
+      <div class="team-body">
+        <span class="team-role">Bridal Beauty Director</span>
+        <h3 class="team-name">Nina Petrova</h3>
+        <p class="team-bio">Nina has overseen over 300 bridal parties in her 12-year career. She leads Lumière's bridal consultations, creating bespoke packages tailored to each bride's vision and timeline.</p>
+        <div class="team-tags"><span class="tag">Bridal Makeup</span><span class="tag">Skin Prep</span><span class="tag">Hair Styling</span></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</section>
+
+<!-- AWARDS STRIP -->
+<section class="awards">
+  <div class="wrap">
+    <div class="text-center" style="margin-bottom:2.5rem">
+      <div class="label fu" style="justify-content:center">Recognition</div>
+      <h2 class="h-sec fu">Our <em>Awards & Certifications</em></h2>
+    </div>
+    <div class="awards-grid">
+      <div class="award-item fu">
+        <div class="award-icon"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg></div>
+        <div class="award-title">Best Luxury Spa</div>
+        <div class="award-body">Time Out London Beauty Awards 2024</div>
+      </div>
+      <div class="award-item fu">
+        <div class="award-icon"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+        <div class="award-title">Top Rated Salon</div>
+        <div class="award-body">Treatwell Excellence Award 2023 & 2024</div>
+      </div>
+      <div class="award-item fu">
+        <div class="award-icon"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <div class="award-title">BABTAC Certified</div>
+        <div class="award-body">All therapists hold Level 3+ qualifications</div>
+      </div>
+      <div class="award-item fu">
+        <div class="award-icon"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M12 2C10 8 4 9 4 14c0 4.4 3.6 8 8 8s8-3.6 8-8c0-5-6-6-8-12z"/></svg></div>
+        <div class="award-title">Eco Beauty Certified</div>
+        <div class="award-body">Certified organic product range since 2015</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- JOIN US CTA -->
+<section class="join-sec">
+  <div class="wrap">
+    <div class="label fu" style="justify-content:center">Careers</div>
+    <h2 class="fu">Passionate about <em>botanical beauty?</em></h2>
+    <p class="fu">We're always looking for talented therapists and stylists to join our team. We offer competitive pay, CPD training, and a genuinely wonderful place to work.</p>
+    <a href="contact.html" class="btn btn-fill fu">Get In Touch <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+  </div>
+</section>
+
+</main>
+<div id="ft-ph"></div>
+<script src="shared.js"></script>
+</body>
+</html>

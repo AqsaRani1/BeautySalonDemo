@@ -1,0 +1,1328 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Book a Treatment — Lumière Spa</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* STEP INDICATOR */
+    .step-bar {
+      display: flex;
+      align-items: center;
+      max-width: 680px;
+      margin: 0 auto 3rem;
+      position: relative;
+      padding: 0 1rem
+    }
+
+    .step-bar::before {
+      content: '';
+      position: absolute;
+      top: 18px;
+      left: calc(1rem + 18px);
+      right: calc(1rem + 18px);
+      height: 2px;
+      background: var(--parchment);
+      z-index: 0
+    }
+
+    .step-bar-fill {
+      position: absolute;
+      top: 18px;
+      left: calc(1rem + 18px);
+      height: 2px;
+      background: var(--terra);
+      z-index: 1;
+      transition: width 0.5s var(--ease)
+    }
+
+    .step-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .5rem;
+      flex: 1;
+      position: relative;
+      z-index: 2
+    }
+
+    .step-circle {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--parchment);
+      border: 2px solid var(--parchment);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .75rem;
+      font-weight: 500;
+      color: var(--bark3);
+      transition: .35s;
+      font-family: var(--sans)
+    }
+
+    .step-item.done .step-circle {
+      background: var(--moss);
+      border-color: var(--moss);
+      color: #fff
+    }
+
+    .step-item.active .step-circle {
+      background: var(--terra);
+      border-color: var(--terra);
+      color: #fff;
+      box-shadow: 0 0 0 5px rgba(181, 100, 60, .2)
+    }
+
+    .step-label {
+      font-size: .65rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--bark3);
+      transition: color .3s;
+      white-space: nowrap
+    }
+
+    .step-item.active .step-label,
+    .step-item.done .step-label {
+      color: var(--bark)
+    }
+
+    /* LAYOUT */
+    .booking-wrap {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 2.5rem;
+      align-items: start;
+      padding-top: .5rem
+    }
+
+    .booking-panel {
+      background: var(--cream);
+      border-radius: 8px;
+      box-shadow: 0 8px 40px rgba(46, 32, 22, .08);
+      overflow: hidden
+    }
+
+    .bp-header {
+      padding: 1.8rem 2rem;
+      border-bottom: 1px solid var(--parchment);
+      display: flex;
+      align-items: center;
+      gap: 1rem
+    }
+
+    .bp-header h3 {
+      font-family: var(--serif);
+      font-size: 1.45rem;
+      font-weight: 400
+    }
+
+    .bp-header p {
+      font-size: .78rem;
+      color: var(--bark3);
+      margin-top: .15rem
+    }
+
+    .bp-body {
+      padding: 2rem
+    }
+
+    /* STEP 1 — TREATMENT */
+    .treatment-cats {
+      display: flex;
+      gap: .4rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.8rem
+    }
+
+    .tcat-btn {
+      padding: .4rem .9rem;
+      font-size: .67rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      border: 1px solid var(--parchment);
+      background: none;
+      color: var(--bark2);
+      border-radius: 2px;
+      cursor: pointer;
+      transition: .25s;
+      font-family: var(--sans)
+    }
+
+    .tcat-btn:hover,
+    .tcat-btn.active {
+      background: var(--bark);
+      border-color: var(--bark);
+      color: var(--cream)
+    }
+
+    .treatment-list {
+      display: flex;
+      flex-direction: column;
+      gap: .6rem;
+      max-height: 420px;
+      overflow-y: auto;
+      padding-right: 4px
+    }
+
+    .treatment-list::-webkit-scrollbar {
+      width: 4px
+    }
+
+    .treatment-list::-webkit-scrollbar-track {
+      background: var(--cream2)
+    }
+
+    .treatment-list::-webkit-scrollbar-thumb {
+      background: var(--sand);
+      border-radius: 2px
+    }
+
+    .t-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 1rem;
+      align-items: center;
+      padding: 1rem 1.2rem;
+      border: 1.5px solid var(--parchment);
+      border-radius: 4px;
+      cursor: pointer;
+      transition: .25s;
+      background: var(--cream)
+    }
+
+    .t-row:hover {
+      border-color: var(--terra);
+      background: rgba(181, 100, 60, .03)
+    }
+
+    .t-row.selected {
+      border-color: var(--terra);
+      background: rgba(181, 100, 60, .06)
+    }
+
+    .t-row-name {
+      font-family: var(--serif);
+      font-size: 1.06rem;
+      font-weight: 400;
+      color: var(--bark);
+      transition: color .3s
+    }
+
+    .t-row:hover .t-row-name,
+    .t-row.selected .t-row-name {
+      color: var(--terra)
+    }
+
+    .t-row-meta {
+      font-size: .74rem;
+      color: var(--bark3);
+      margin-top: .2rem;
+      display: flex;
+      gap: .8rem
+    }
+
+    .t-row-price {
+      font-family: var(--serif);
+      font-size: 1.3rem;
+      font-weight: 300;
+      color: var(--terra);
+      white-space: nowrap;
+      text-align: right
+    }
+
+    .t-row-dur {
+      font-size: .68rem;
+      color: var(--bark3);
+      margin-top: .2rem;
+      text-align: right
+    }
+
+    .t-row-sel {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 2px solid var(--parchment);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: .25s;
+      color: transparent
+    }
+
+    .t-row.selected .t-row-sel {
+      background: var(--terra);
+      border-color: var(--terra);
+      color: #fff
+    }
+
+    /* STEP 2 — DATE & TIME */
+    .month-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.2rem
+    }
+
+    .month-nav button {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--cream2);
+      border: 1px solid var(--parchment);
+      color: var(--bark2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: .25s;
+      font-family: var(--sans)
+    }
+
+    .month-nav button:hover {
+      background: var(--terra);
+      color: #fff;
+      border-color: var(--terra)
+    }
+
+    .month-label {
+      font-family: var(--serif);
+      font-size: 1.2rem;
+      font-weight: 400
+    }
+
+    .cal-header {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 2px;
+      margin-bottom: .5rem
+    }
+
+    .cal-day-name {
+      text-align: center;
+      font-size: .63rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--bark3);
+      padding: .4rem 0
+    }
+
+    .cal-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 4px
+    }
+
+    .cal-btn {
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--parchment);
+      border-radius: 3px;
+      font-size: .8rem;
+      cursor: pointer;
+      transition: .25s;
+      background: var(--cream);
+      font-family: var(--sans)
+    }
+
+    .cal-btn:hover:not(.unavail) {
+      border-color: var(--terra);
+      color: var(--terra)
+    }
+
+    .cal-btn.selected {
+      background: var(--terra);
+      border-color: var(--terra);
+      color: #fff
+    }
+
+    .cal-btn.today {
+      font-weight: 600;
+      color: var(--terra)
+    }
+
+    .cal-btn.unavail {
+      opacity: .3;
+      cursor: not-allowed;
+      background: var(--cream2)
+    }
+
+    .cal-btn.empty {
+      border: none;
+      background: none;
+      cursor: default
+    }
+
+    .time-section {
+      margin-top: 1.8rem
+    }
+
+    .time-label {
+      font-size: .7rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--bark3);
+      margin-bottom: .8rem
+    }
+
+    .time-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: .5rem
+    }
+
+    .time-btn {
+      padding: .55rem;
+      background: var(--cream2);
+      border: 1px solid var(--parchment);
+      border-radius: 3px;
+      font-size: .78rem;
+      text-align: center;
+      cursor: pointer;
+      transition: .25s;
+      font-family: var(--sans)
+    }
+
+    .time-btn:hover:not(.unavail) {
+      border-color: var(--terra);
+      color: var(--terra)
+    }
+
+    .time-btn.selected {
+      background: var(--terra);
+      border-color: var(--terra);
+      color: #fff
+    }
+
+    .time-btn.unavail {
+      opacity: .3;
+      cursor: not-allowed
+    }
+
+    /* STEP 3 — DETAILS */
+    .details-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem
+    }
+
+    .frow {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem
+    }
+
+    .fgroup {
+      display: flex;
+      flex-direction: column;
+      gap: .4rem
+    }
+
+    .flabel {
+      font-size: .68rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--bark2);
+      font-weight: 400
+    }
+
+    .finput,
+    .fselect,
+    .ftextarea {
+      width: 100%;
+      padding: .8rem 1rem;
+      background: var(--cream2);
+      border: 1px solid var(--parchment);
+      border-radius: 3px;
+      font-size: .87rem;
+      font-weight: 300;
+      color: var(--bark);
+      transition: border-color .3s, background .3s;
+      -webkit-appearance: none;
+      appearance: none;
+      font-family: var(--sans)
+    }
+
+    .finput:focus,
+    .fselect:focus,
+    .ftextarea:focus {
+      outline: none;
+      border-color: var(--terra);
+      background: var(--cream)
+    }
+
+    .ftextarea {
+      resize: vertical;
+      min-height: 100px;
+      line-height: 1.6
+    }
+
+    .extras-list {
+      display: flex;
+      flex-direction: column;
+      gap: .5rem;
+      margin-top: .3rem
+    }
+
+    .extra-item {
+      display: flex;
+      align-items: center;
+      gap: .8rem;
+      padding: .7rem;
+      border: 1px solid var(--parchment);
+      border-radius: 3px;
+      cursor: pointer;
+      transition: .25s
+    }
+
+    .extra-item:hover {
+      border-color: var(--terra)
+    }
+
+    .extra-item.active {
+      border-color: var(--terra);
+      background: rgba(181, 100, 60, .04)
+    }
+
+    .extra-check {
+      width: 20px;
+      height: 20px;
+      border-radius: 3px;
+      border: 1.5px solid var(--parchment);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: .25s
+    }
+
+    .extra-item.active .extra-check {
+      background: var(--terra);
+      border-color: var(--terra);
+      color: #fff
+    }
+
+    .extra-name {
+      font-size: .84rem;
+      color: var(--bark);
+      flex: 1
+    }
+
+    .extra-price {
+      font-family: var(--serif);
+      font-size: .95rem;
+      color: var(--terra)
+    }
+
+    /* STEP 4 — CONFIRM */
+    .confirm-box {
+      background: linear-gradient(135deg, var(--bark) 0%, var(--bark2) 100%);
+      border-radius: 6px;
+      padding: 2rem;
+      color: var(--cream);
+      text-align: center;
+      margin-bottom: 1.5rem
+    }
+
+    .confirm-icon {
+      width: 64px;
+      height: 64px;
+      background: var(--moss);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.2rem
+    }
+
+    .confirm-box h3 {
+      font-family: var(--serif);
+      font-size: 2rem;
+      font-weight: 300;
+      margin-bottom: .5rem
+    }
+
+    .confirm-box p {
+      font-size: .85rem;
+      color: rgba(247, 242, 234, .65);
+      line-height: 1.6
+    }
+
+    .confirm-details {
+      display: flex;
+      flex-direction: column;
+      gap: .8rem
+    }
+
+    .confirm-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: .9rem 0;
+      border-bottom: 1px solid var(--parchment);
+      font-size: .85rem
+    }
+
+    .confirm-row:last-child {
+      border-bottom: none
+    }
+
+    .confirm-key {
+      color: var(--bark3);
+      font-size: .7rem;
+      letter-spacing: .1em;
+      text-transform: uppercase
+    }
+
+    .confirm-val {
+      color: var(--bark);
+      font-weight: 400;
+      text-align: right
+    }
+
+    .confirm-total {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 0;
+      margin-top: .5rem;
+      border-top: 2px solid var(--parchment)
+    }
+
+    .confirm-total-label {
+      font-size: .8rem;
+      font-weight: 500;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--bark)
+    }
+
+    .confirm-total-val {
+      font-family: var(--serif);
+      font-size: 2rem;
+      font-weight: 300;
+      color: var(--terra)
+    }
+
+    /* BOOKING SUMMARY (sidebar) */
+    .summary-card {
+      background: var(--bark);
+      color: var(--cream);
+      border-radius: 8px;
+      padding: 2rem;
+      position: sticky;
+      top: calc(var(--nav) + 2rem)
+    }
+
+    .summary-title {
+      font-family: var(--serif);
+      font-size: 1.5rem;
+      font-weight: 300;
+      margin-bottom: 1.4rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid rgba(247, 242, 234, .1)
+    }
+
+    .summary-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: .8rem;
+      padding: .7rem 0;
+      border-bottom: 1px solid rgba(247, 242, 234, .07);
+      font-size: .83rem;
+      color: rgba(247, 242, 234, .65)
+    }
+
+    .summary-item strong {
+      color: var(--cream);
+      font-weight: 400;
+      text-align: right
+    }
+
+    .summary-total {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 0 0;
+      margin-top: .5rem
+    }
+
+    .summary-total span {
+      font-size: .8rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: rgba(247, 242, 234, .55)
+    }
+
+    .summary-total-val {
+      font-family: var(--serif);
+      font-size: 2.2rem;
+      font-weight: 300;
+      color: var(--sand)
+    }
+
+    .summary-empty {
+      font-size: .82rem;
+      color: rgba(247, 242, 234, .35);
+      font-style: italic;
+      text-align: center;
+      padding: 2rem 0
+    }
+
+    .summary-note {
+      font-size: .72rem;
+      color: rgba(247, 242, 234, .3);
+      line-height: 1.6;
+      margin-top: 1.5rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(247, 242, 234, .07)
+    }
+
+    .summary-note a {
+      color: rgba(247, 242, 234, .5);
+      text-decoration: underline
+    }
+
+    .summary-note a:hover {
+      color: var(--sand)
+    }
+
+    /* NAV BUTTONS */
+    .booking-nav {
+      display: flex;
+      gap: .8rem;
+      justify-content: space-between;
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--parchment)
+    }
+
+    .booking-nav--end {
+      justify-content: flex-end
+    }
+
+    .step-panel {
+      display: none
+    }
+
+    .step-panel.active {
+      display: block
+    }
+
+    @media(max-width:1000px) {
+      .booking-wrap {
+        grid-template-columns: 1fr
+      }
+
+      .summary-card {
+        position: static
+      }
+    }
+
+    @media(max-width:580px) {
+      .frow {
+        grid-template-columns: 1fr
+      }
+
+      .time-grid {
+        grid-template-columns: repeat(3, 1fr)
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="nav-ph"></div>
+
+  <div class="pg-hero" style="padding-bottom:2rem">
+    <div class="pg-hero-inner wrap">
+      <div class="label fu" style="justify-content:center">Your Ritual Awaits</div>
+      <h1>Book a <em>Treatment</em></h1>
+      <p>Reserve your place at Lumière Spa in just a few steps. All bookings include a complimentary skin or wellness
+        consultation.</p>
+    </div>
+  </div>
+
+  <main>
+    <section class="sp" style="background:var(--cream2);padding-top:3rem">
+      <div class="wrap">
+
+        <!-- STEP INDICATOR -->
+        <div class="step-bar" id="step-bar">
+          <div class="step-bar-fill" id="step-fill" style="width:0%"></div>
+          <div class="step-item active" data-step="1">
+            <div class="step-circle">1</div>
+            <div class="step-label">Treatment</div>
+          </div>
+          <div class="step-item" data-step="2">
+            <div class="step-circle">2</div>
+            <div class="step-label">Date & Time</div>
+          </div>
+          <div class="step-item" data-step="3">
+            <div class="step-circle">3</div>
+            <div class="step-label">Your Details</div>
+          </div>
+          <div class="step-item" data-step="4">
+            <div class="step-circle">4</div>
+            <div class="step-label">Confirm</div>
+          </div>
+        </div>
+
+        <div class="booking-wrap">
+
+          <!-- MAIN PANEL -->
+          <div>
+            <div class="booking-panel">
+
+              <!-- STEP 1: CHOOSE TREATMENT -->
+              <div class="step-panel active" id="panel-1">
+                <div class="bp-header">
+                  <div>
+                    <h3>Choose Your Treatment</h3>
+                    <p>Select from our full menu of botanical treatments below</p>
+                  </div>
+                </div>
+                <div class="bp-body">
+                  <div class="treatment-cats">
+                    <button class="tcat-btn active" data-tcat="all">All</button>
+                    <button class="tcat-btn" data-tcat="facial">Facials</button>
+                    <button class="tcat-btn" data-tcat="massage">Massage</button>
+                    <button class="tcat-btn" data-tcat="body">Body</button>
+                    <button class="tcat-btn" data-tcat="hair">Hair</button>
+                    <button class="tcat-btn" data-tcat="nails">Nails</button>
+                    <button class="tcat-btn" data-tcat="bridal">Bridal</button>
+                  </div>
+                  <div class="treatment-list" id="treatment-list">
+                    <!-- filled by JS -->
+                  </div>
+                  <div class="booking-nav booking-nav--end">
+                    <button class="btn btn-fill" id="step1-next" disabled>Continue to Date &amp; Time <svg width="14"
+                        height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                      </svg></button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- STEP 2: DATE & TIME -->
+              <div class="step-panel" id="panel-2">
+                <div class="bp-header">
+                  <div>
+                    <h3>Pick a Date & Time</h3>
+                    <p>Select your preferred appointment date and time slot</p>
+                  </div>
+                </div>
+                <div class="bp-body">
+                  <div class="month-nav">
+                    <button id="prev-month"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6" />
+                      </svg></button>
+                    <div class="month-label" id="month-label"></div>
+                    <button id="next-month"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+                        <polyline points="9 18 15 12 9 6" />
+                      </svg></button>
+                  </div>
+                  <div class="cal-header">
+                    <div class="cal-day-name">Sun</div>
+                    <div class="cal-day-name">Mon</div>
+                    <div class="cal-day-name">Tue</div>
+                    <div class="cal-day-name">Wed</div>
+                    <div class="cal-day-name">Thu</div>
+                    <div class="cal-day-name">Fri</div>
+                    <div class="cal-day-name">Sat</div>
+                  </div>
+                  <div class="cal-grid" id="cal-grid"></div>
+
+                  <div class="time-section">
+                    <div class="time-label">Available Times</div>
+                    <div class="time-grid" id="time-grid">
+                      <button class="time-btn" data-time="09:00">9:00 AM</button>
+                      <button class="time-btn" data-time="09:30">9:30 AM</button>
+                      <button class="time-btn unavail" data-time="10:00">10:00 AM</button>
+                      <button class="time-btn" data-time="10:30">10:30 AM</button>
+                      <button class="time-btn" data-time="11:00">11:00 AM</button>
+                      <button class="time-btn unavail" data-time="11:30">11:30 AM</button>
+                      <button class="time-btn" data-time="12:00">12:00 PM</button>
+                      <button class="time-btn" data-time="13:00">1:00 PM</button>
+                      <button class="time-btn unavail" data-time="13:30">1:30 PM</button>
+                      <button class="time-btn" data-time="14:00">2:00 PM</button>
+                      <button class="time-btn" data-time="14:30">2:30 PM</button>
+                      <button class="time-btn" data-time="15:00">3:00 PM</button>
+                      <button class="time-btn unavail" data-time="15:30">3:30 PM</button>
+                      <button class="time-btn" data-time="16:00">4:00 PM</button>
+                      <button class="time-btn" data-time="16:30">4:30 PM</button>
+                      <button class="time-btn" data-time="17:00">5:00 PM</button>
+                      <button class="time-btn" data-time="17:30">5:30 PM</button>
+                      <button class="time-btn unavail" data-time="18:00">6:00 PM</button>
+                      <button class="time-btn" data-time="18:30">6:30 PM</button>
+                      <button class="time-btn" data-time="19:00">7:00 PM</button>
+                    </div>
+                  </div>
+                  <div class="booking-nav">
+                    <button class="btn btn-line" id="step2-back">← Back</button>
+                    <button class="btn btn-fill" id="step2-next" disabled>Continue to Details <svg width="14"
+                        height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                      </svg></button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- STEP 3: DETAILS -->
+              <div class="step-panel" id="panel-3">
+                <div class="bp-header">
+                  <div>
+                    <h3>Your Details</h3>
+                    <p>Tell us about yourself and any preferences</p>
+                  </div>
+                </div>
+                <div class="bp-body">
+                  <div class="details-form">
+                    <div class="frow">
+                      <div class="fgroup"><label class="flabel">First Name *</label><input class="finput" id="b-fname"
+                          type="text" placeholder="First name" required></div>
+                      <div class="fgroup"><label class="flabel">Last Name *</label><input class="finput" id="b-lname"
+                          type="text" placeholder="Last name" required></div>
+                    </div>
+                    <div class="frow">
+                      <div class="fgroup"><label class="flabel">Email Address *</label><input class="finput"
+                          id="b-email" type="email" placeholder="your@email.com" required></div>
+                      <div class="fgroup"><label class="flabel">Phone Number *</label><input class="finput" id="b-phone"
+                          type="tel" placeholder="+44 ___" required></div>
+                    </div>
+                    <div class="fgroup">
+                      <label class="flabel">Therapist Preference</label>
+                      <select class="fselect" id="b-therapist">
+                        <option value="">No preference — any available therapist</option>
+                        <option>Isabelle Laurent (Lead Aesthetician)</option>
+                        <option>Maya Okafor (Massage Specialist)</option>
+                        <option>Chloé Whitmore (Hair Master)</option>
+                        <option>Ravi Sharma (Holistic Wellness)</option>
+                        <option>Amelia Knox (Pregnancy & Body)</option>
+                        <option>Sophie Durand (Nail Artist)</option>
+                        <option>James Harrington (Men's Grooming)</option>
+                        <option>Nina Petrova (Bridal Director)</option>
+                      </select>
+                    </div>
+                    <div class="fgroup">
+                      <label class="flabel">Skin / Health Notes</label>
+                      <textarea class="ftextarea" id="b-notes"
+                        placeholder="Any allergies, skin sensitivities, injuries or preferences we should know about…"></textarea>
+                    </div>
+
+                    <!-- OPTIONAL ADD-ONS -->
+                    <div>
+                      <div class="flabel" style="margin-bottom:.8rem">Optional Add-Ons</div>
+                      <div class="extras-list">
+                        <div class="extra-item" data-extra="Gua Sha Facial Lift" data-price="25">
+                          <div class="extra-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"
+                              stroke="currentColor" stroke-width="2.5">
+                              <polyline points="20 6 9 17 4 12" />
+                            </svg></div>
+                          <div class="extra-name">Gua Sha Facial Lift <span
+                              style="font-size:.73rem;color:var(--bark3)">— 20 min</span></div>
+                          <div class="extra-price">+£25</div>
+                        </div>
+                        <div class="extra-item" data-extra="LED Light Therapy" data-price="30">
+                          <div class="extra-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"
+                              stroke="currentColor" stroke-width="2.5">
+                              <polyline points="20 6 9 17 4 12" />
+                            </svg></div>
+                          <div class="extra-name">LED Light Therapy <span style="font-size:.73rem;color:var(--bark3)">—
+                              20 min</span></div>
+                          <div class="extra-price">+£30</div>
+                        </div>
+                        <div class="extra-item" data-extra="Champagne & Botanicals" data-price="28">
+                          <div class="extra-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"
+                              stroke="currentColor" stroke-width="2.5">
+                              <polyline points="20 6 9 17 4 12" />
+                            </svg></div>
+                          <div class="extra-name">Champagne & Botanicals <span
+                              style="font-size:.73rem;color:var(--bark3)">— glass + fruit platter</span></div>
+                          <div class="extra-price">+£28</div>
+                        </div>
+                        <div class="extra-item" data-extra="Scalp Massage" data-price="20">
+                          <div class="extra-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"
+                              stroke="currentColor" stroke-width="2.5">
+                              <polyline points="20 6 9 17 4 12" />
+                            </svg></div>
+                          <div class="extra-name">Scalp Massage <span style="font-size:.73rem;color:var(--bark3)">— 15
+                              min botanical oil</span></div>
+                          <div class="extra-price">+£20</div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <label
+                      style="display:flex;align-items:flex-start;gap:.7rem;cursor:pointer;font-size:.8rem;color:var(--bark2);font-weight:300;line-height:1.6">
+                      <input type="checkbox" id="b-newclient" style="margin-top:3px;accent-color:var(--terra)">
+                      This is my first visit to Lumière Spa (you'll receive a complimentary 15-min consultation)
+                    </label>
+                  </div>
+                  <div class="booking-nav">
+                    <button class="btn btn-line" id="step3-back">← Back</button>
+                    <button class="btn btn-fill" id="step3-next">Review Booking <svg width="14" height="14"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                      </svg></button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- STEP 4: CONFIRM -->
+              <div class="step-panel" id="panel-4">
+                <div class="bp-header">
+                  <div>
+                    <h3>Review & Confirm</h3>
+                    <p>Please check your booking details below</p>
+                  </div>
+                </div>
+                <div class="bp-body" id="confirm-body">
+                  <!-- filled by JS -->
+                </div>
+              </div>
+
+              <!-- STEP 5: SUCCESS -->
+              <div class="step-panel" id="panel-5">
+                <div class="bp-body" style="text-align:center;padding:3rem 2rem">
+                  <div
+                    style="width:80px;height:80px;background:var(--moss);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;animation:float 3s ease-in-out infinite">
+                    <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8">
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                  </div>
+                  <h2 class="h-sec" style="margin-bottom:.8rem">Booking <em>Confirmed!</em></h2>
+                  <p style="font-size:.9rem;color:var(--bark2);max-width:420px;margin:0 auto 1.5rem;line-height:1.8">
+                    Your treatment has been reserved. A confirmation email is on its way to <strong
+                      id="success-email"></strong>. We can't wait to welcome you to Lumière.</p>
+                  <div
+                    style="background:var(--cream2);border-radius:6px;padding:1.5rem;margin:1.5rem auto;max-width:380px;text-align:left">
+                    <div id="success-summary"
+                      style="display:flex;flex-direction:column;gap:.7rem;font-size:.85rem;color:var(--bark2)"></div>
+                  </div>
+                  <p style="font-size:.78rem;color:var(--bark3);margin-bottom:2rem">Need to change or cancel? Call us on
+                    <a href="tel:+442071234567" style="color:var(--terra)">+44 207 123 4567</a> or email <a
+                      href="mailto:hello@lumierespa.com"
+                      style="color:var(--terra)">hello@lumierespa.com</a>.<br>Cancellations require 24 hours' notice.
+                  </p>
+                  <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
+                    <a href="index.html" class="btn btn-line">Return to Home</a>
+                    <a href="services.html" class="btn btn-fill">Explore More Treatments <svg width="14" height="14"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                      </svg></a>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- SUMMARY SIDEBAR -->
+          <div>
+            <div class="summary-card">
+              <div class="summary-title">Booking Summary</div>
+              <div id="summary-body">
+                <div class="summary-empty">Your selection will appear here as you build your booking.</div>
+              </div>
+              <div class="summary-note">By confirming, you agree to our <a href="#">booking policy</a>. 24 hours' notice
+                required for cancellations.</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="ft-ph"></div>
+  <script src="shared.js"></script>
+  <script>
+    // =============================================
+    // BOOKING SYSTEM DATA & LOGIC
+    // =============================================
+
+    const TREATMENTS = [
+      // FACIALS
+      { id: 1, cat: 'facial', name: 'Lumière Botanical Ritual', desc: 'Signature four-layer: cleanse, enzyme exfoliation, herbal compress, stem-cell mask', duration: '90 mins', price: 185 },
+      { id: 2, cat: 'facial', name: 'Deep Hydration Facial', desc: 'Hyaluronic serum infusion with lymphatic drainage massage', duration: '60 mins', price: 95 },
+      { id: 3, cat: 'facial', name: 'Brightening Vitamin C Ritual', desc: 'Kakadu plum treatment targeting tone, dark spots and dullness', duration: '75 mins', price: 120 },
+      { id: 4, cat: 'facial', name: 'Resurfacing AHA Peel', desc: 'Lactic and glycolic acid blend with soothing botanical mask', duration: '45 mins', price: 80 },
+      { id: 5, cat: 'facial', name: "Men's Botanical Facial", desc: 'Deep pore cleanse, ingrown-hair treatment, and barrier repair', duration: '60 mins', price: 90 },
+      { id: 6, cat: 'facial', name: 'Express Radiance Facial', desc: 'Quick refresh: cleanse, micro-exfoliation, antioxidant mask', duration: '30 mins', price: 55 },
+      // MASSAGE
+      { id: 7, cat: 'massage', name: 'Swedish Botanical Massage', desc: 'Classic relaxation with warm botanical oil blend', duration: '60 mins', price: 85 },
+      { id: 8, cat: 'massage', name: 'Deep Tissue Release', desc: 'Targeted deep-tissue work with hot botanical compress', duration: '90 mins', price: 140 },
+      { id: 9, cat: 'massage', name: 'Hot Stone Ritual', desc: 'Volcanic basalt stones in botanical herb infusions', duration: '90 mins', price: 150 },
+      { id: 10, cat: 'massage', name: 'Pregnancy Massage', desc: 'Gentle adapted massage using safe botanical oils', duration: '60 mins', price: 90 },
+      { id: 11, cat: 'massage', name: 'Couples Ritual Massage', desc: 'Side-by-side massage in our private couples suite', duration: '90 mins', price: 280 },
+      { id: 12, cat: 'massage', name: 'Aromatherapy Journey', desc: 'Personalised essential oil blend for your wellness goals', duration: '75 mins', price: 115 },
+      // BODY
+      { id: 13, cat: 'body', name: 'Seaweed Mineral Wrap', desc: 'Atlantic seaweed wrap reducing puffiness and hydrating deeply', duration: '75 mins', price: 130 },
+      { id: 14, cat: 'body', name: 'Volcanic Clay Detox Wrap', desc: 'Bentonite clay wrap with warming spices to draw impurities', duration: '75 mins', price: 125 },
+      { id: 15, cat: 'body', name: 'Botanical Sugar Scrub', desc: 'Full-body exfoliation with rosehip oil and botanical extracts', duration: '45 mins', price: 75 },
+      { id: 16, cat: 'body', name: 'Coffee & Coconut Body Polish', desc: 'Arabica coffee grounds, coconut oil and vanilla — smooth and firm', duration: '45 mins', price: 70 },
+      // HAIR
+      { id: 17, cat: 'hair', name: 'Signature Cut & Blow-Dry', desc: 'Precision cut and full botanical blow-dry with heat protection', duration: '60–90 mins', price: 75 },
+      { id: 18, cat: 'hair', name: 'Organic Colour', desc: 'Ammonia-free, PPD-free organic colour with botanical mask', duration: '90–150 mins', price: 90 },
+      { id: 19, cat: 'hair', name: 'Botanical Keratin Treatment', desc: 'Formaldehyde-free smoothing for frizz-free glossy hair', duration: '120 mins', price: 185 },
+      { id: 20, cat: 'hair', name: 'Scalp Revival Ritual', desc: 'Scalp analysis, treatment mask and restorative massage', duration: '60 mins', price: 95 },
+      // NAILS
+      { id: 21, cat: 'nails', name: 'Botanical Manicure', desc: 'Shaping, cuticle care, hand scrub, oil soak, massage, polish', duration: '45 mins', price: 50 },
+      { id: 22, cat: 'nails', name: 'Botanical Pedicure', desc: 'Botanical foot soak, callus removal, leg massage and colour', duration: '60 mins', price: 65 },
+      { id: 23, cat: 'nails', name: 'Gel Manicure', desc: 'Long-lasting gel polish in 200+ colours with full manicure', duration: '60 mins', price: 65 },
+      { id: 24, cat: 'nails', name: 'Nail Art Session', desc: 'Bespoke nail art from botanical motifs to 3D embellishments', duration: '75 mins', price: 85 },
+      { id: 25, cat: 'nails', name: 'Mani & Pedi Duo', desc: 'Complete manicure and pedicure at a combined price', duration: '100 mins', price: 105 },
+      // BRIDAL
+      { id: 26, cat: 'bridal', name: 'The Lumière Bride', desc: '3 facials + body wrap + hair styling + wedding-day makeup', duration: 'Multiple sessions', price: 650 },
+      { id: 27, cat: 'bridal', name: 'Pre-Wedding Skin Programme', desc: '6-week bespoke skin plan with monthly facials and home kit', duration: '6 weeks', price: 380 },
+      { id: 28, cat: 'bridal', name: 'Morning-of Spa Morning', desc: 'Champagne breakfast + facial + hair and makeup in private suite', duration: '4 hours', price: 295 },
+    ];
+
+    let booking = { treatment: null, date: null, time: null, extras: [], step: 1 };
+    let currentMonth = new Date(); currentMonth.setDate(1);
+
+    // RENDER TREATMENTS
+    function renderTreatments(cat = 'all') {
+      const list = document.getElementById('treatment-list');
+      const filtered = cat === 'all' ? TREATMENTS : TREATMENTS.filter(t => t.cat === cat);
+      list.innerHTML = filtered.map(t => `
+    <div class="t-row${booking.treatment && booking.treatment.id === t.id ? ' selected' : ''}" data-id="${t.id}">
+      <div>
+        <div class="t-row-name">${t.name}</div>
+        <div class="t-row-meta"><span>${t.duration}</span></div>
+        <div style="font-size:.75rem;color:var(--bark3);margin-top:.15rem">${t.desc}</div>
+      </div>
+      <div style="text-align:right">
+        <div class="t-row-price">£${t.price}</div>
+        <div class="t-row-sel"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
+      </div>
+    </div>`).join('');
+      list.querySelectorAll('.t-row').forEach(row => {
+        row.addEventListener('click', () => {
+          booking.treatment = TREATMENTS.find(t => t.id === parseInt(row.dataset.id));
+          list.querySelectorAll('.t-row').forEach(r => r.classList.remove('selected'));
+          row.classList.add('selected');
+          document.getElementById('step1-next').disabled = false;
+          updateSummary();
+        });
+      });
+    }
+
+    // CALENDAR
+    function renderCalendar() {
+      const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+      document.getElementById('month-label').textContent = `${months[currentMonth.getMonth()]} ${currentMonth.getFullYear()}`;
+      const grid = document.getElementById('cal-grid');
+      const today = new Date(); today.setHours(0, 0, 0, 0);
+      const first = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), 1);
+      const lastDay = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 0).getDate();
+      const startDay = first.getDay();
+      let html = '';
+      for (let i = 0; i < startDay; i++) html += `<button class="cal-btn empty"></button>`;
+      for (let d = 1; d <= lastDay; d++) {
+        const dt = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), d);
+        const isPast = dt < today;
+        const isSun = dt.getDay() === 0;
+        const isToday = dt.toDateString() === today.toDateString();
+        const isSel = booking.date && booking.date === dt.toDateString();
+        const cls = `cal-btn${isPast || isSun ? ' unavail' : ''}${isToday ? ' today' : ''}${isSel ? ' selected' : ''}`;
+        html += `<button class="${cls}" data-date="${dt.toDateString()}"${isPast || isSun ? ' disabled' : ''}>${d}</button>`;
+      }
+      grid.innerHTML = html;
+      grid.querySelectorAll('.cal-btn:not(.unavail):not(.empty)').forEach(btn => {
+        btn.addEventListener('click', () => {
+          booking.date = btn.dataset.date;
+          grid.querySelectorAll('.cal-btn').forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+          randomiseTimeslots();
+          updateSummary();
+          checkStep2();
+        });
+      });
+    }
+
+    function randomiseTimeslots() {
+      document.querySelectorAll('.time-btn:not(.unavail)').forEach(btn => {
+        btn.classList.remove('selected');
+        if (Math.random() < .25) { btn.classList.add('unavail'); }
+        else { btn.classList.remove('unavail'); }
+      });
+    }
+
+    function checkStep2() {
+      document.getElementById('step2-next').disabled = !(booking.date && booking.time);
+    }
+
+    // TIME BUTTONS
+    document.querySelectorAll('.time-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (btn.classList.contains('unavail')) return;
+        document.querySelectorAll('.time-btn').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        booking.time = btn.dataset.time;
+        updateSummary();
+        checkStep2();
+      });
+    });
+
+    // ADD-ONS
+    document.querySelectorAll('.extra-item').forEach(item => {
+      item.addEventListener('click', () => {
+        item.classList.toggle('active');
+        const name = item.dataset.extra, price = parseInt(item.dataset.price);
+        if (item.classList.contains('active')) {
+          booking.extras.push({ name, price });
+        } else {
+          booking.extras = booking.extras.filter(e => e.name !== name);
+        }
+        updateSummary();
+      });
+    });
+
+    // SUMMARY
+    function updateSummary() {
+      const body = document.getElementById('summary-body');
+      if (!booking.treatment) { body.innerHTML = '<div class="summary-empty">Your selection will appear here as you build your booking.</div>'; return; }
+      let extrasTotal = booking.extras.reduce((s, e) => s + e.price, 0);
+      let total = booking.treatment.price + extrasTotal;
+      let html = `
+    <div class="summary-item"><span>Treatment</span><strong>${booking.treatment.name}</strong></div>
+    <div class="summary-item"><span>Duration</span><strong>${booking.treatment.duration}</strong></div>
+    <div class="summary-item"><span>Price</span><strong>£${booking.treatment.price}</strong></div>`;
+      if (booking.date) html += `<div class="summary-item"><span>Date</span><strong>${booking.date}</strong></div>`;
+      if (booking.time) { const [h, m] = booking.time.split(':'); const hh = parseInt(h); html += `<div class="summary-item"><span>Time</span><strong>${hh > 12 ? hh - 12 : hh}:${m} ${hh >= 12 ? 'PM' : 'AM'}</strong></div>`; }
+      booking.extras.forEach(e => { html += `<div class="summary-item"><span>${e.name}</span><strong>+£${e.price}</strong></div>`; });
+      html += `<div class="summary-total"><span>Total</span><div class="summary-total-val">£${total}</div></div>`;
+      body.innerHTML = html;
+    }
+
+    // TREATMENT CATEGORY FILTER
+    document.querySelectorAll('.tcat-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tcat-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        renderTreatments(btn.dataset.tcat);
+      });
+    });
+
+    // MONTH NAV
+    document.getElementById('prev-month').addEventListener('click', () => {
+      const prev = new Date(currentMonth); prev.setMonth(prev.getMonth() - 1);
+      const today = new Date(); today.setDate(1); today.setHours(0, 0, 0, 0);
+      if (prev >= today) { currentMonth = prev; renderCalendar(); }
+    });
+    document.getElementById('next-month').addEventListener('click', () => {
+      currentMonth.setMonth(currentMonth.getMonth() + 1); renderCalendar();
+    });
+
+    // STEP NAVIGATION
+    function goToStep(n) {
+      booking.step = n;
+      document.querySelectorAll('.step-panel').forEach(p => p.classList.remove('active'));
+      document.getElementById(`panel-${n}`).classList.add('active');
+      // Update step bar
+      document.querySelectorAll('.step-item').forEach(item => {
+        const s = parseInt(item.dataset.step);
+        item.classList.remove('active', 'done');
+        if (s === n) item.classList.add('active');
+        if (s < n) item.classList.add('done');
+        item.querySelector('.step-circle').innerHTML = s < n
+          ? `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>`
+          : s;
+      });
+      const fills = [0, 0, 33, 66, 100];
+      document.getElementById('step-fill').style.width = fills[n - 1] + '%';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    document.getElementById('step1-next').addEventListener('click', () => goToStep(2));
+    document.getElementById('step2-back').addEventListener('click', () => goToStep(1));
+    document.getElementById('step2-next').addEventListener('click', () => goToStep(3));
+    document.getElementById('step3-back').addEventListener('click', () => goToStep(2));
+    document.getElementById('step3-next').addEventListener('click', () => {
+      const fname = document.getElementById('b-fname').value.trim();
+      const email = document.getElementById('b-email').value.trim();
+      const phone = document.getElementById('b-phone').value.trim();
+      if (!fname || !email || !phone) {
+        if (!fname) document.getElementById('b-fname').style.borderColor = 'var(--terra)';
+        if (!email) document.getElementById('b-email').style.borderColor = 'var(--terra)';
+        if (!phone) document.getElementById('b-phone').style.borderColor = 'var(--terra)';
+        return;
+      }
+      booking.name = fname + ' ' + document.getElementById('b-lname').value.trim();
+      booking.email = email;
+      booking.phone = phone;
+      booking.therapist = document.getElementById('b-therapist').value || 'No preference';
+      booking.notes = document.getElementById('b-notes').value;
+      renderConfirm();
+      goToStep(4);
+    });
+
+    function renderConfirm() {
+      let extrasTotal = booking.extras.reduce((s, e) => s + e.price, 0);
+      let total = booking.treatment.price + extrasTotal;
+      const body = document.getElementById('confirm-body');
+      let extrasHtml = booking.extras.map(e => `<div class="confirm-row"><div class="confirm-key">Add-On</div><div class="confirm-val">${e.name} <span style="color:var(--terra)">+£${e.price}</span></div></div>`).join('');
+      body.innerHTML = `
+    <div class="confirm-box">
+      <div class="confirm-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      <h3>Almost there!</h3>
+      <p>Review your booking details below and confirm when you're ready.</p>
+    </div>
+    <div class="confirm-details">
+      <div class="confirm-row"><div class="confirm-key">Client</div><div class="confirm-val">${booking.name}</div></div>
+      <div class="confirm-row"><div class="confirm-key">Email</div><div class="confirm-val">${booking.email}</div></div>
+      <div class="confirm-row"><div class="confirm-key">Phone</div><div class="confirm-val">${booking.phone}</div></div>
+      <div class="confirm-row"><div class="confirm-key">Treatment</div><div class="confirm-val">${booking.treatment.name}</div></div>
+      <div class="confirm-row"><div class="confirm-key">Duration</div><div class="confirm-val">${booking.treatment.duration}</div></div>
+      <div class="confirm-row"><div class="confirm-key">Date</div><div class="confirm-val">${booking.date || '—'}</div></div>
+      <div class="confirm-row"><div class="confirm-key">Time</div><div class="confirm-val">${booking.time || '—'}</div></div>
+      <div class="confirm-row"><div class="confirm-key">Therapist</div><div class="confirm-val">${booking.therapist}</div></div>
+      ${extrasHtml}
+      ${booking.notes ? `<div class="confirm-row"><div class="confirm-key">Notes</div><div class="confirm-val" style="font-size:.82rem">${booking.notes}</div></div>` : ''}
+    </div>
+    <div class="confirm-total"><div class="confirm-total-label">Total</div><div class="confirm-total-val">£${total}</div></div>
+    <div class="booking-nav">
+      <button class="btn btn-line" onclick="goToStep(3)">← Edit Details</button>
+      <button class="btn btn-fill" id="confirm-btn">Confirm Booking <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+    </div>`;
+      document.getElementById('confirm-btn').addEventListener('click', () => {
+        const btn = document.getElementById('confirm-btn');
+        btn.textContent = 'Confirming…'; btn.disabled = true;
+        setTimeout(() => {
+          document.getElementById('success-email').textContent = booking.email;
+          const s = document.getElementById('success-summary');
+          let extrasTotal = booking.extras.reduce((a, e) => a + e.price, 0);
+          s.innerHTML = `
+        <div><strong>Treatment:</strong> ${booking.treatment.name}</div>
+        <div><strong>Date:</strong> ${booking.date || '—'} at ${booking.time || '—'}</div>
+        <div><strong>Therapist:</strong> ${booking.therapist}</div>
+        <div><strong>Total Paid:</strong> £${booking.treatment.price + extrasTotal}</div>`;
+          goToStep(5);
+          document.querySelector('.step-bar').style.display = 'none';
+        }, 1600);
+      });
+    }
+
+    // INIT
+    document.addEventListener('DOMContentLoaded', () => {
+      renderTreatments();
+      renderCalendar();
+    });
+  </script>
+</body>
+
+</html>

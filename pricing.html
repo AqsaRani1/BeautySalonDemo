@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pricing — Lumière Spa</title>
+<link rel="stylesheet" href="style.css">
+<style>
+/* PRICING CARDS */
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2.5rem}
+.pcard{background:var(--cream);border:1px solid var(--parchment);border-radius:8px;padding:2.4rem 2rem;display:flex;flex-direction:column;gap:1.3rem;position:relative;transition:transform .4s,box-shadow .4s;transform-style:preserve-3d;cursor:default}
+.pcard:hover{transform:perspective(900px) rotateX(-4deg) translateY(-10px);box-shadow:0 32px 80px rgba(46,32,22,.14)}
+.pcard--feat{background:var(--bark);color:var(--cream);border-color:var(--bark)}
+.pcard--feat:hover{box-shadow:0 32px 80px rgba(46,32,22,.4)}
+.pbadge{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--gold);color:#fff;padding:.32rem 1.3rem;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;border-radius:12px;white-space:nowrap;box-shadow:0 4px 14px rgba(196,154,60,.4)}
+.p-tier{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--terra)}
+.pcard--feat .p-tier{color:var(--sand)}
+.p-name{font-family:var(--serif);font-size:1.9rem;font-weight:400;line-height:1.1}
+.p-desc{font-size:.82rem;color:var(--bark2);line-height:1.6}
+.pcard--feat .p-desc{color:rgba(247,242,234,.6)}
+.p-price-wrap{padding:1.2rem 0;border-top:1px solid var(--parchment);border-bottom:1px solid var(--parchment)}
+.pcard--feat .p-price-wrap{border-color:rgba(247,242,234,.1)}
+.p-price{font-family:var(--serif);font-size:3.6rem;font-weight:300;line-height:1;color:var(--bark)}
+.pcard--feat .p-price{color:var(--cream)}
+.p-price sup{font-size:1.3rem;vertical-align:super;margin-right:2px}
+.p-period{font-size:.78rem;color:var(--bark3);margin-top:.3rem}
+.pcard--feat .p-period{color:rgba(247,242,234,.4)}
+.p-feats{display:flex;flex-direction:column;gap:.8rem;flex:1}
+.pfeat{display:flex;align-items:flex-start;gap:10px;font-size:.83rem;color:var(--bark2);line-height:1.5}
+.pcard--feat .pfeat{color:rgba(247,242,234,.82)}
+.p-ico{width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.p-ico--yes{background:var(--moss)}
+.p-ico--no{background:var(--parchment);opacity:.5}
+.pcard--feat .p-ico--no{background:rgba(247,242,234,.15);opacity:.8}
+
+/* ADDONS */
+.addons-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:1rem;margin-top:2rem}
+.addon{background:var(--cream);border:1px solid var(--parchment);border-radius:4px;padding:1.3rem 1.4rem;display:flex;justify-content:space-between;align-items:center;gap:1rem;transition:border-color .3s,transform .3s,box-shadow .3s}
+.addon:hover{border-color:var(--terra);transform:translateY(-4px);box-shadow:0 10px 28px rgba(46,32,22,.1)}
+.addon-name{font-family:var(--serif);font-size:1.05rem;font-weight:400}
+.addon-sub{font-size:.74rem;color:var(--bark3);margin-top:.2rem}
+.addon-price{font-family:var(--serif);font-size:1.3rem;font-weight:300;color:var(--terra);white-space:nowrap}
+
+/* MEMBERSHIP BENEFITS TABLE */
+.compare-table{width:100%;border-collapse:collapse;margin-top:2rem;font-size:.84rem}
+.compare-table th{padding:.9rem 1rem;text-align:left;font-size:.67rem;letter-spacing:.15em;text-transform:uppercase;color:var(--bark3);border-bottom:2px solid var(--parchment);font-weight:400}
+.compare-table th:not(:first-child){text-align:center}
+.compare-table td{padding:.9rem 1rem;border-bottom:1px solid var(--parchment);color:var(--bark2);vertical-align:middle}
+.compare-table td:not(:first-child){text-align:center}
+.compare-table tr:hover td{background:rgba(181,100,60,.03)}
+.compare-table .check{color:var(--moss);font-size:1.1rem}
+.compare-table .dash{color:var(--parchment);font-size:1rem}
+.compare-table .highlight-col{background:rgba(46,32,22,.03)}
+
+/* FAQ */
+.faq-list{display:flex;flex-direction:column;gap:0;margin-top:2rem;border-top:1px solid var(--parchment)}
+.faq-item{border-bottom:1px solid var(--parchment)}
+.faq-q{display:flex;justify-content:space-between;align-items:center;padding:1.3rem 0;cursor:pointer;font-family:var(--serif);font-size:1.12rem;font-weight:400;gap:1rem;transition:color .3s}
+.faq-q:hover{color:var(--terra)}
+.faq-icon{width:24px;height:24px;border:1px solid var(--parchment);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--terra);transition:transform .3s,background .3s}
+.faq-item.open .faq-icon{transform:rotate(45deg);background:var(--terra);color:#fff;border-color:var(--terra)}
+.faq-a{font-size:.87rem;color:var(--bark2);line-height:1.8;max-height:0;overflow:hidden;transition:max-height .4s var(--ease),padding .4s var(--ease)}
+.faq-item.open .faq-a{max-height:300px;padding-bottom:1.3rem}
+
+@media(max-width:1000px){.pricing-grid{grid-template-columns:1fr;max-width:480px;margin:2.5rem auto 0}}
+@media(max-width:680px){.compare-table{font-size:.76rem}.compare-table th,.compare-table td{padding:.7rem .5rem}}
+</style>
+</head>
+<body>
+<div id="nav-ph"></div>
+
+<div class="pg-hero">
+  <div class="pg-hero-inner wrap">
+    <div class="label fu" style="justify-content:center">Transparent & Fair</div>
+    <h1>Our <em>Pricing</em></h1>
+    <p>We believe exceptional botanical wellness should be accessible. Choose a membership or book individual treatments — all with complimentary consultations included.</p>
+  </div>
+</div>
+
+<main>
+
+<!-- PRICING TIERS -->
+<section class="sp" style="background:var(--cream)">
+  <div class="wrap">
+    <div class="text-center">
+      <div class="label fu" style="justify-content:center">Memberships</div>
+      <h2 class="h-sec fu">Find your perfect <em>plan</em></h2>
+    </div>
+
+    <div class="pricing-grid">
+
+      <!-- BLOOM -->
+      <div class="pcard fu">
+        <div class="p-tier">Starter</div>
+        <div class="p-name">Bloom</div>
+        <p class="p-desc">Perfect for those new to botanical wellness who want to explore our treatments at their own pace.</p>
+        <div class="p-price-wrap">
+          <div class="p-price"><sup>£</sup>49</div>
+          <div class="p-period">per month · cancel anytime</div>
+        </div>
+        <div class="p-feats">
+          <div class="pfeat"><span class="p-ico p-ico--yes"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span>1 botanical facial per month</div>
+          <div class="pfeat"><span class="p-ico p-ico--yes"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span>10% off all treatments</div>
+          <div class="pfeat"><span class="p-ico p-ico--yes"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span>Free skin consultation</div>
+          <div class="pfeat"><span class="p-ico p-ico--yes"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span>Birthday treatment gift</div>
+          <div class="pfeat"><span class="p-ico p-ico--yes"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span>Access to members' events</div>
+          <div class="pfeat"><span class="p-ico p-ico--no"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--bark3)" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span>Priority booking</div>
+          <div class="pfeat"><span class="p-ico p-ico--no"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--bark3)" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span>Complimentary product samples</div>
+          <div class="pfeat"><span class="p-ico p-ico--no"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--bark3)" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span>Private suite access</div>
+        </div>
+        <a href="booking.html" class="btn btn-line" style="justify-content:center">Get Started</a>
+      </div>
+
+      <!-- RADIANCE (FEATURED) -->
+      <div class="pcard pcard--feat fu">
+        <div class="pbadge">Most Popular</div>
+        <div class="p-tier">Best Value</div>
+        <div class="p-name">Radiance</div>
+        <p class="p-desc">Our most popular plan — the complete botanical wellness experience for regular visitors who deserve the very best.</p>
+        <div class="p-price-wrap">
+          <div class="p-price"><sup>£</sup>120</div>
+          <div class="p-period">per month · cancel anytime</div>
+        </div>
+        <div class="p-feats">
+          <div class="pfeat"><span class="p-ico p-ico--yes"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span>2 treatments per month (any type)</div>
+          <div class="pfeat"><span class="p-ico p-ico--yes"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span>20% off all treatments</div>
+          <div class="pfeat"><span class="p-ico p-ico--yes"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span>Free skin & wellness consultation</div>
+          <div class="pfeat"><span class="p-ico p-ico--yes"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span>Birthday treatment gift + £20 credit</div>
+          <div class="pfeat"><span class="p-ico p-ico--yes"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span>Priority booking (48 hr advance)</div>
+          <div class="pfeat"><span class="p-ico p-ico--yes"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span>Monthly botanical product sample</div>
+          <div class="pfeat"><span class="p-ico p-ico--yes"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span>Access to all members' events</div>
+          <div class="pfeat"><span class="p-ico p-ico--no"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="rgba(247,242,234,.4)" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span>Private suite access</div>
+        </div>
+        <a href="booking.html" class="btn btn-line-lt" style="justify-content:center">Join Radiance</a>
+      </div>
+
+      <!-- LUMIÈRE ELITE -->
+      <div class="pcard fu">
+        <div class="p-tier">Premium</div>
+        <div class="p-name">Lumière Elite</div>
+        <p class="p-desc">The ultimate Lumière experience — unlimited access, exclusive perks, and the private suite reserved for our most devoted members.</p>
+        <div class="p-price-wrap">
+          <div class="p-price"><sup>£</sup>250</div>
+          <div class="p-period">per month · 6-month minimum</div>
+        </div>
+        <div class="p-feats">
+          <div class="pfeat"><span class="p-ico p-ico--yes"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span>Unlimited treatments (all categories)</div>
+          <div class="pfeat"><span class="p-ico p-ico--yes"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span>25% off retail products</div>
+          <div class="pfeat"><span class="p-ico p-ico--yes"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span>Same-day priority booking</div>
+          <div class="pfeat"><span class="p-ico p-ico--yes"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span>Private suite — always reserved</div>
+          <div class="pfeat"><span class="p-ico p-ico--yes"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span>Dedicated therapist assigned to you</div>
+          <div class="pfeat"><span class="p-ico p-ico--yes"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span>Quarterly gift box (botanical products)</div>
+          <div class="pfeat"><span class="p-ico p-ico--yes"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span>Annual full-day retreat (incl. lunch)</div>
+          <div class="pfeat"><span class="p-ico p-ico--yes"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span>Exclusive VIP event invitations</div>
+        </div>
+        <a href="booking.html" class="btn btn-fill" style="justify-content:center">Join Elite <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ADD-ONS -->
+<section class="sp bg2">
+  <div class="wrap">
+    <div class="label fu">Enhance Your Visit</div>
+    <h2 class="h-sec fu">Treatment <em>Add-Ons</em></h2>
+    <p class="fu" style="color:var(--bark2);font-size:.9rem;max-width:560px;margin-top:.5rem">Add these enhancements to any treatment for an elevated experience. All add-ons include complimentary botanical tea service.</p>
+    <div class="addons-grid">
+      <div class="addon fu"><div><div class="addon-name">Gua Sha Facial Lift</div><div class="addon-sub">20 minutes · add to any facial</div></div><div class="addon-price">£25</div></div>
+      <div class="addon fu"><div><div class="addon-name">LED Light Therapy</div><div class="addon-sub">20 minutes · red or blue light</div></div><div class="addon-price">£30</div></div>
+      <div class="addon fu"><div><div class="addon-name">Scalp Massage</div><div class="addon-sub">15 minutes · botanical oil blend</div></div><div class="addon-price">£20</div></div>
+      <div class="addon fu"><div><div class="addon-name">Eye Treatment</div><div class="addon-sub">15 minutes · collagen eye mask</div></div><div class="addon-price">£22</div></div>
+      <div class="addon fu"><div><div class="addon-name">Paraffin Hand Dip</div><div class="addon-sub">20 minutes · intensive moisture</div></div><div class="addon-price">£18</div></div>
+      <div class="addon fu"><div><div class="addon-name">Aromatherapy Upgrade</div><div class="addon-sub">Personalised essential oil blend</div></div><div class="addon-price">£15</div></div>
+      <div class="addon fu"><div><div class="addon-name">Champagne & Botanicals</div><div class="addon-sub">Glass of champagne + fruit platter</div></div><div class="addon-price">£28</div></div>
+      <div class="addon fu"><div><div class="addon-name">Take-Home Kit</div><div class="addon-sub">Curated botanical skincare samples</div></div><div class="addon-price">£35</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARISON TABLE -->
+<section class="sp" style="background:var(--cream)">
+  <div class="wrap-md">
+    <div class="text-center">
+      <div class="label fu" style="justify-content:center">Compare</div>
+      <h2 class="h-sec fu">Membership <em>Benefits at a Glance</em></h2>
+    </div>
+    <table class="compare-table fu">
+      <thead>
+        <tr>
+          <th>Benefit</th>
+          <th>Bloom<br><span style="font-family:var(--serif);font-size:1rem;font-weight:300;letter-spacing:0;text-transform:none">£49/mo</span></th>
+          <th style="background:rgba(46,32,22,.04)">Radiance<br><span style="font-family:var(--serif);font-size:1rem;font-weight:300;letter-spacing:0;text-transform:none">£120/mo</span></th>
+          <th>Elite<br><span style="font-family:var(--serif);font-size:1rem;font-weight:300;letter-spacing:0;text-transform:none">£250/mo</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Monthly treatments included</td><td>1 facial</td><td class="highlight-col">2 (any)</td><td>Unlimited</td></tr>
+        <tr><td>Treatment discount</td><td>10%</td><td class="highlight-col">20%</td><td>—</td></tr>
+        <tr><td>Retail product discount</td><td>—</td><td class="highlight-col">—</td><td>25%</td></tr>
+        <tr><td>Priority booking</td><td class="dash">—</td><td class="highlight-col"><span class="check">✓</span></td><td><span class="check">✓ Same-day</span></td></tr>
+        <tr><td>Free skin consultation</td><td><span class="check">✓</span></td><td class="highlight-col"><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+        <tr><td>Birthday gift</td><td><span class="check">✓</span></td><td class="highlight-col"><span class="check">✓ + £20</span></td><td><span class="check">✓ + £50</span></td></tr>
+        <tr><td>Monthly product samples</td><td class="dash">—</td><td class="highlight-col"><span class="check">✓</span></td><td><span class="check">✓ Quarterly box</span></td></tr>
+        <tr><td>Private suite access</td><td class="dash">—</td><td class="highlight-col dash">—</td><td><span class="check">✓ Always</span></td></tr>
+        <tr><td>Dedicated therapist</td><td class="dash">—</td><td class="highlight-col dash">—</td><td><span class="check">✓</span></td></tr>
+        <tr><td>Annual retreat day</td><td class="dash">—</td><td class="highlight-col dash">—</td><td><span class="check">✓</span></td></tr>
+        <tr><td>Cancel anytime</td><td><span class="check">✓</span></td><td class="highlight-col"><span class="check">✓</span></td><td class="dash">— (6 mo min)</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="sp bg2">
+  <div class="wrap-md">
+    <div class="label fu">Got Questions?</div>
+    <h2 class="h-sec fu">Frequently Asked <em>Questions</em></h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q">Can I pause my membership?<span class="faq-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></div>
+        <div class="faq-a">Yes — all memberships can be paused for up to 2 months per year, for any reason including holidays, illness, or new babies. Simply contact us at least 7 days before your next billing date and we'll handle the rest.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Do unused treatments roll over?<span class="faq-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></div>
+        <div class="faq-a">Bloom and Radiance treatments roll over for one month if you miss them. After that they expire. Elite members can roll over up to 3 treatments in any given month. We recommend booking in advance to avoid losing any treatments.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Can I share my membership with a partner?<span class="faq-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></div>
+        <div class="faq-a">Memberships are individual and non-transferable. However, we offer a Couples Membership add-on at a 15% discount — please call us to discuss your options. Our team will find the most cost-effective arrangement for you.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What is your cancellation policy?<span class="faq-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></div>
+        <div class="faq-a">We ask for 24 hours' notice for appointment cancellations. Cancellations within 24 hours or no-shows will use one of your monthly treatment credits. We understand that emergencies happen and will always consider exceptional circumstances.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Are gift cards available?<span class="faq-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></div>
+        <div class="faq-a">Absolutely. Lumière gift cards are available in any denomination from £25 to £500. They can be purchased in person, by phone, or via our website and are valid for 12 months. Physical cards with beautiful botanical packaging are available at no extra cost.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Is there a joining fee?<span class="faq-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></div>
+        <div class="faq-a">There is no joining fee for Bloom or Radiance memberships. The Elite membership has a one-time £50 onboarding fee which includes your first dedicated therapist consultation, a full skin analysis, and a personalised treatment plan mapped out for the year ahead.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="sp bg-dark text-center">
+  <div class="wrap-sm">
+    <div class="label fu" style="justify-content:center">Ready to Begin?</div>
+    <h2 class="h-sec fu">Not sure which plan is <em>right for you?</em></h2>
+    <p class="fu" style="color:rgba(247,242,234,.65);font-size:.9rem;margin:.8rem auto 2rem;max-width:460px">Book a free 15-minute phone consultation with our wellness team and we'll help you choose the perfect membership for your lifestyle and goals.</p>
+    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap" class="fu">
+      <a href="booking.html" class="btn btn-fill">Book a Consultation <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      <a href="tel:+442071234567" class="btn btn-line-lt">Call: +44 207 123 4567</a>
+    </div>
+  </div>
+</section>
+
+</main>
+<div id="ft-ph"></div>
+<script src="shared.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded',()=>{
+  document.querySelectorAll('.faq-q').forEach(q=>{
+    q.addEventListener('click',()=>{
+      const item=q.parentElement;
+      const wasOpen=item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));
+      if(!wasOpen) item.classList.add('open');
+    });
+  });
+});
+</script>
+</body>
+</html>
